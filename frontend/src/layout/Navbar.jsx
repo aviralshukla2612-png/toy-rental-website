@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import img from '../assets/image.png';
 import { FaShoppingCart, FaBars, FaTimes, FaUser } from 'react-icons/fa';
 import { useData } from '../context/DataProvider';
-import { Dashboard } from '../pages/dashboard';
+import { Dashboard } from '../pages/Dashboard';
 export const Navbar = () => {
   const navigate = useNavigate();
   const { cart, isLogIn, token, user } = useData();
