@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import { FaGear } from "react-icons/fa6";
 
-export const Dashboard = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("profile");
 
@@ -78,3 +78,4 @@ export const Dashboard = () => {
     </div>
   );
 };
+export default Dashboard;

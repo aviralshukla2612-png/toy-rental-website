@@ -1,7 +1,7 @@
 import React from 'react'
 import imga from '../assets/contact1.jpg';
 
-export const Contact = () => {
+const Contact = () => {
 
   const offices = [
   {
@@ -156,3 +156,4 @@ const style={
       
  )
 }
+export default Contact;

@@ -12,7 +12,7 @@ import imgj from '../assets/blog10.jpg';
 import imgk from '../assets/blog11.webp';
 import imgl from '../assets/blog12.jpg';
 
-export const Blog = () => {
+ const Blog = () => {
 
   const blog=[
     {
@@ -111,3 +111,4 @@ export const Blog = () => {
     </>
   )
 }
+export default Blog;

@@ -7,7 +7,7 @@ import imge from '../assets/games5.webp';
 import imgf from '../assets/games6.webp';
 import { useNavigate } from "react-router-dom";
 
-export const Games = () => {
+ const Games = () => {
   const navigate = useNavigate(); 
 
   const Games = [
@@ -104,3 +104,4 @@ export const Games = () => {
     </>
   );
 };
+export default Games;

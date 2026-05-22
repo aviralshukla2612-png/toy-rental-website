@@ -1,7 +1,7 @@
 import React from 'react'
 import imga from '../assets/inquire1.png'
 
-export const Inquire = () => {
+ const Inquire = () => {
     const style={
       backgroundImage:`url(${imga})`,
       height:'800px',
@@ -92,3 +92,5 @@ export const Inquire = () => {
     </div>
   )
 }
+
+export default Inquire;

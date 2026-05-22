@@ -1,6 +1,6 @@
 import React from 'react'
 import imga from "../assets/franchise.jpg";
-export const Franchise = () => {
+ const Franchise = () => {
   return (
     <>
     <div className='mt-10 bg-gray-100'>
@@ -35,3 +35,5 @@ export const Franchise = () => {
     </>
   )
 }
+
+export default Franchise;

@@ -17,8 +17,7 @@ import star from '../assets/about14.jfif';
 
 
 
-
-export const About = () => {
+ const About = () => {
 
   const steps =[
     {
@@ -187,3 +186,4 @@ export const About = () => {
     </>
   );
 };
+export default About;

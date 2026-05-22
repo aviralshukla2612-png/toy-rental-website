@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API } from '../config/api';
 
-export const Register = () => {
+const Register = () => {
   const[form,setForm]=useState({
     username:"",
     name:"",
@@ -56,3 +56,6 @@ export const Register = () => {
     </>
   )
 }
+
+export default Register;
+

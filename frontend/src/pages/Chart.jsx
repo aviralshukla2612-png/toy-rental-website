@@ -1,7 +1,7 @@
 import React from 'react'
 import {LineChart,Line,XAxis,YAxis,Tooltip,BarChart,Bar,CartesianGrid,ResponsiveContainer} from "recharts";
 
-export const Chart = () => {
+ const Chart = () => {
      const progressData = [
     { set: "SET 1", value: 20 },
     { set: "SET 2", value: 50 },
@@ -88,3 +88,4 @@ export const Chart = () => {
     </div>
   );
 };
+export default Chart;

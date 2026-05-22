@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Table = () => {
+ const Table = () => {
 
   const tableData = [
     {
@@ -123,3 +123,5 @@ export const Table = () => {
     </div>
   );
 };
+
+export default Table;

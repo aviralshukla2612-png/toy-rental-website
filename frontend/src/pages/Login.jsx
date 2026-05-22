@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { API } from '../config/api';
 import { useData } from '../context/DataProvider';
 
-export const Login = () => {
+const Login = () => {
   const [form, setForm] = useState({
     email: "",
     password: ""
@@ -42,3 +42,5 @@ export const Login = () => {
     </>
   )
 }
+
+export default Login;

@@ -4,7 +4,7 @@ import grow from '../assets/plan2.png';
 import plant from '../assets/plan3.png';
 import { useNavigate } from "react-router-dom";
 
-export const Plans = () => {
+ const Plans = () => {
   const navigate = useNavigate();
   return (
     <div className="bg-gray-100 py-16 mt-10">
@@ -260,3 +260,5 @@ export const Plans = () => {
     </div>
   )
 }
+
+export default Plans;
