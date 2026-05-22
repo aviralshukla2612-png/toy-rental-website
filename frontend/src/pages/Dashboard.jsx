@@ -30,14 +30,14 @@ const Dashboard = () => {
   return (
     <div className="w-full px-6 py-6 bg-gray-100 min-h-screen">
 
-      <h1 className="text-3xl font-bold text-center mb-6">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-6">
         Welcome to Dashboard
       </h1>
 
-      <div className="flex gap-6 max-w-6xl mx-auto">
+      <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto">
 
         
-        <div className="w-1/4 bg-white p-5 rounded-xl shadow">
+        <div className="w-full md:w-1/4 bg-white p-5 rounded-xl shadow">
           <h2 className="text-xl font-semibold mb-6">User Profile</h2>
 
           <ul className="space-y-3">
@@ -65,7 +65,7 @@ const Dashboard = () => {
         </div>
 
       
-        <div className="w-3/4 bg-white p-6 rounded-xl shadow">
+        <div className="w-full md:w-3/4 bg-white p-6 rounded-xl shadow">
 
           {activeTab === "profile" && <Profile />}
           {activeTab === "favorites" && <Favorites />}

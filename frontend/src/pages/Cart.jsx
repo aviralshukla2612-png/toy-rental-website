@@ -51,15 +51,15 @@ export default function Cart() {
   return (
     <>
     <div className="bg-gray-100 p-5">
-    <div className="max-w-6xl mx-auto  flex gap-10">
+    <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
 
      
-      <div className="w-2/3">
+      <div className="w-full md:w-2/3">
 
         <h1 className="text-2xl font-bold mb-5">Cart</h1>
 
         {cart.map((item, index) => (
-          <div key={index} className="flex gap-5 border p-4 mb-4 rounded">
+          <div key={index} className="flex flex-col sm:flex-row gap-5 border p-4 mb-4 rounded">
             <img src={item.img} className="w-24 h-24 object-contain" />
             <div>
               <h2 className="font-semibold">{item.title}</h2>
@@ -108,7 +108,7 @@ export default function Cart() {
       </div>
 
       
-      <div className="w-1/3 border p-5 rounded h-fit">
+      <div className="w-full md:w-1/3 border p-5 rounded h-fit">
         <h2 className="text-xl font-bold mb-4">Price Details</h2>
 
         <div className="flex justify-between mb-2">

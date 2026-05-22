@@ -26,7 +26,7 @@ import {LineChart,Line,XAxis,YAxis,Tooltip,BarChart,Bar,CartesianGrid,Responsive
   return (
      <div className="bg-gray-100 py-16 px-6">
 
-      <h1 className="text-4xl font-bold text-center text-green-600 mb-4">
+      <h1 className="text-2xl md:text-4xl font-bold text-center text-green-600 mb-4">
         SEE HOW YOUR CHILD GROWS!
       </h1>
 

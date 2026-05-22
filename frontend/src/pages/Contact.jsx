@@ -33,7 +33,7 @@ const Contact = () => {
 
 const style={
   backgroundImage:`url(${imga})`,
-  height:'800px',
+  minHeight:'800px',
   backgroundSize:' cover',
   backgroundRepeat:"no-repeat",
   backgroundPosition:"center",
@@ -99,7 +99,7 @@ const style={
     <div style={style} className=" py-48 px-4 mt-10 w-100%">
 
      
-      <h1 className="text-center text-white text-5xl font-bold mb-12">
+      <h1 className="text-center text-white text-3xl md:text-5xl font-bold mb-12">
         GET IN TOUCH
       </h1>
 
