@@ -13,7 +13,7 @@ import Cart from './pages/Cart'
 import ThankYou from './pages/Thankyou'
 import { Register } from './pages/Register'
 import { Login } from './pages/Login'
-import { Inquire } from './pages/inquire'
+import Inquire from "./pages/Inquire";
 import { Table } from './pages/Table'
 import { Chart } from './pages/Chart'
 import { Dashboard } from './pages/Dashboard'
