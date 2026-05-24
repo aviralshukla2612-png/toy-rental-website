@@ -10,17 +10,39 @@ import {
   FaYoutube,
   FaMapMarkerAlt,
   FaPhoneAlt,
+  FaEnvelope,
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
-
-
 export const Footer = () => {
+
+  const socialLinks = [
+    {
+      icon: <FaFacebookF />,
+      link: "https://facebook.com",
+    },
+    {
+      icon: <FaInstagram />,
+      link: "https://instagram.com",
+    },
+    {
+      icon: <FaTwitter />,
+      link: "https://twitter.com",
+    },
+    {
+      icon: <FaLinkedinIn />,
+      link: "https://linkedin.com",
+    },
+    {
+      icon: <FaYoutube />,
+      link: "https://youtube.com",
+    },
+  ];
 
   return (
 
-    <footer className="bg-slate-950 text-white pt-24 pb-8">
+    <footer className="bg-slate-950 text-white pt-20 pb-8">
 
       <div className="
       max-w-7xl
@@ -33,8 +55,6 @@ export const Footer = () => {
       gap-14
       ">
 
-
-
         {/* COMPANY INFO */}
 
         <div>
@@ -42,127 +62,62 @@ export const Footer = () => {
           <img
             src={img}
             alt="Logo"
-            className="h-16 object-contain mb-6"
+            className="h-16 object-contain mb-5"
           />
 
           <p className="
           text-gray-400
           leading-relaxed
+          text-sm
           ">
-            A fun and interactive platform where children
-            discover creativity, learning and happiness
-            through educational toys and games.
+            CurioKid is a fun and interactive toy rental
+            platform where children discover creativity,
+            learning and happiness through educational
+            toys and games.
           </p>
 
-
-
-          {/* SOCIAL ICONS */}
+          {/* SOCIAL LINKS */}
 
           <div className="flex gap-4 mt-8">
 
-            <div className="
-            w-11
-            h-11
-            rounded-full
-            bg-slate-800
-            hover:bg-white
-            hover:text-black
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            cursor-pointer
-            hover:-translate-y-1
-            ">
-              <FaFacebookF />
-            </div>
+            {socialLinks.map((item, index) => (
 
-            <div className="
-            w-11
-            h-11
-            rounded-full
-            bg-slate-800
-            hover:bg-white
-            hover:text-black
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            cursor-pointer
-            hover:-translate-y-1
-            ">
-              <FaInstagram />
-            </div>
+              <a
+                key={index}
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="
+                w-11
+                h-11
+                rounded-full
+                bg-slate-800
+                hover:bg-white
+                hover:text-black
+                transition-all
+                duration-300
+                flex
+                items-center
+                justify-center
+                hover:-translate-y-1
+                "
+              >
+                {item.icon}
+              </a>
 
-            <div className="
-            w-11
-            h-11
-            rounded-full
-            bg-slate-800
-            hover:bg-white
-            hover:text-black
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            cursor-pointer
-            hover:-translate-y-1
-            ">
-              <FaTwitter />
-            </div>
-
-            <div className="
-            w-11
-            h-11
-            rounded-full
-            bg-slate-800
-            hover:bg-white
-            hover:text-black
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            cursor-pointer
-            hover:-translate-y-1
-            ">
-              <FaLinkedinIn />
-            </div>
-
-            <div className="
-            w-11
-            h-11
-            rounded-full
-            bg-slate-800
-            hover:bg-white
-            hover:text-black
-            transition-all
-            duration-300
-            flex
-            items-center
-            justify-center
-            cursor-pointer
-            hover:-translate-y-1
-            ">
-              <FaYoutube />
-            </div>
+            ))}
 
           </div>
 
         </div>
-
-
 
         {/* QUICK LINKS */}
 
         <div>
 
           <h2 className="
-          text-2xl
-          font-bold
+          text-xl
+          font-semibold
           mb-6
           ">
             Quick Links
@@ -171,12 +126,13 @@ export const Footer = () => {
           <ul className="
           space-y-4
           text-gray-400
+          text-sm
           ">
 
             <li>
               <Link
                 to="/"
-                className="hover:text-white transition duration-300"
+                className="hover:text-white transition"
               >
                 Home
               </Link>
@@ -185,7 +141,7 @@ export const Footer = () => {
             <li>
               <Link
                 to="/about"
-                className="hover:text-white transition duration-300"
+                className="hover:text-white transition"
               >
                 About
               </Link>
@@ -194,7 +150,7 @@ export const Footer = () => {
             <li>
               <Link
                 to="/game"
-                className="hover:text-white transition duration-300"
+                className="hover:text-white transition"
               >
                 Games
               </Link>
@@ -203,7 +159,7 @@ export const Footer = () => {
             <li>
               <Link
                 to="/plan"
-                className="hover:text-white transition duration-300"
+                className="hover:text-white transition"
               >
                 Plans
               </Link>
@@ -212,7 +168,7 @@ export const Footer = () => {
             <li>
               <Link
                 to="/contact"
-                className="hover:text-white transition duration-300"
+                className="hover:text-white transition"
               >
                 Contact
               </Link>
@@ -222,143 +178,150 @@ export const Footer = () => {
 
         </div>
 
-
-
         {/* CATEGORIES */}
 
+       {/* CATEGORIES */}
+
+<div>
+
+  <h2 className="
+  text-xl
+  font-semibold
+  mb-6
+  ">
+    Categories
+  </h2>
+
+  <ul className="
+  space-y-4
+  text-gray-400
+  text-sm
+  ">
+
+    <li>
+
+      <Link
+        to="/game?category=Board Games"
+        className="hover:text-white transition"
+      >
+        Board Games
+      </Link>
+
+    </li>
+
+    <li>
+
+      <Link
+        to="/game?category=Big%20Toys"
+        className="hover:text-white transition"
+      >
+        Big Toys
+      </Link>
+
+    </li>
+
+    <li>
+
+      <Link
+        to="/game?category=Educational Games"
+        className="hover:text-white transition"
+      >
+        Educational Games
+      </Link>
+
+    </li>
+
+  </ul>
+
+</div>
+
+        {/* CONTACT */}
+
         <div>
 
           <h2 className="
-          text-2xl
-          font-bold
+          text-xl
+          font-semibold
           mb-6
           ">
-            Categories
+            Contact Us
           </h2>
-
-          <ul className="
-          space-y-4
-          text-gray-400
-          ">
-
-            <li className="hover:text-white transition duration-300 cursor-pointer">
-              Educational Toys
-            </li>
-
-            <li className="hover:text-white transition duration-300 cursor-pointer">
-              Board Games
-            </li>
-
-            <li className="hover:text-white transition duration-300 cursor-pointer">
-              Puzzle Games
-            </li>
-
-            <li className="hover:text-white transition duration-300 cursor-pointer">
-              Creative Kits
-            </li>
-
-            <li className="hover:text-white transition duration-300 cursor-pointer">
-              STEM Learning
-            </li>
-
-          </ul>
-
-        </div>
-
-
-
-        {/* STORE INFO */}
-
-        <div>
-
-          <h2 className="
-          text-2xl
-          font-bold
-          mb-6
-          ">
-            Our Stores
-          </h2>
-
-
 
           <div className="
-          space-y-6
+          space-y-5
           text-gray-400
+          text-sm
           ">
 
-            <div>
+            <div className="flex items-start gap-3">
 
-              <div className="flex items-start gap-3">
+              <FaMapMarkerAlt className="mt-1 text-white" />
 
-                <FaMapMarkerAlt className="mt-1 text-white" />
-
-                <p className="leading-relaxed">
-                  Navrangpura, Ahmedabad - 380009
-                </p>
-
-              </div>
-
-              <div className="flex items-center gap-3 mt-3">
-
-                <FaPhoneAlt className="text-white" />
-
-                <p>
-                  +91 9319313177
-                </p>
-
-              </div>
+              <p>
+                Navrangpura, Ahmedabad - 380009
+              </p>
 
             </div>
 
+            <div className="flex items-center gap-3">
 
+              <FaPhoneAlt className="text-white" />
 
-            <div>
-
-              <div className="flex items-start gap-3">
-
-                <FaMapMarkerAlt className="mt-1 text-white" />
-
-                <p className="leading-relaxed">
-                  South Bopal, Ahmedabad - 380058
-                </p>
-
-              </div>
-
-              <div className="flex items-center gap-3 mt-3">
-
-                <FaPhoneAlt className="text-white" />
-
-                <p>
-                  +91 7573002754
-                </p>
-
-              </div>
+              <p>
+                +91 9319313177
+              </p>
 
             </div>
 
+            <div className="flex items-center gap-3">
 
+              <FaEnvelope className="text-white" />
 
-            <div>
+              <p>
+                info.curiokid@gmail.com
+              </p>
 
-              <div className="flex items-start gap-3">
+            </div>
 
-                <FaMapMarkerAlt className="mt-1 text-white" />
+          </div>
 
-                <p className="leading-relaxed">
-                  Nikol, Ahmedabad - 382345
-                </p>
+          {/* NEWSLETTER */}
 
-              </div>
+          <div className="mt-8">
 
-              <div className="flex items-center gap-3 mt-3">
+            <h3 className="text-sm font-medium mb-3">
+              Subscribe Newsletter
+            </h3>
 
-                <FaPhoneAlt className="text-white" />
+            <div className="flex">
 
-                <p>
-                  +91 7573002347
-                </p>
+              <input
+                type="email"
+                placeholder="Enter email"
+                className="
+                w-full
+                px-4
+                py-3
+                rounded-l-xl
+                bg-slate-800
+                outline-none
+                text-sm
+                "
+              />
 
-              </div>
+              <button
+                className="
+                bg-white
+                text-black
+                px-5
+                rounded-r-xl
+                font-medium
+                hover:bg-gray-200
+                transition
+                "
+              >
+                Send
+              </button>
 
             </div>
 
@@ -368,15 +331,13 @@ export const Footer = () => {
 
       </div>
 
-
-
-      {/* BOTTOM COPYRIGHT */}
+      {/* COPYRIGHT */}
 
       <div className="
       border-t
       border-slate-800
-      mt-20
-      pt-8
+      mt-16
+      pt-6
       text-center
       text-gray-500
       text-sm

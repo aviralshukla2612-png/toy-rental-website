@@ -1,6 +1,12 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 
 import {
   FaHeart,
@@ -14,13 +20,14 @@ import imgd from "../assets/games4.webp";
 import imge from "../assets/games5.webp";
 import imgf from "../assets/games6.webp";
 
-
-
 const Games = () => {
 
   const navigate = useNavigate();
 
+  const location = useLocation();
 
+  const queryParams =
+    new URLSearchParams(location.search);
 
   /* GAMES DATA */
 
@@ -76,40 +83,55 @@ const Games = () => {
 
   ];
 
-
-
   /* STATES */
 
-  const [selectedAge, setSelectedAge] = useState("All");
+  const [selectedAge, setSelectedAge] =
+    useState("All");
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] =
+    useState("All");
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] =
+    useState("");
 
+  /* URL CATEGORY CHANGE */
 
+  useEffect(() => {
+
+    const category =
+      decodeURIComponent(
+        queryParams.get("category") || "All"
+      );
+
+    setSelectedCategory(category);
+
+  }, [location.search]);
 
   /* FILTER LOGIC */
 
-  const filteredGames = gamesData.filter((game) => {
+  const filteredGames =
+    gamesData.filter((game) => {
 
-    const ageMatch =
-      selectedAge === "All" ||
-      game.age === selectedAge;
+      const ageMatch =
+        selectedAge === "All" ||
+        game.age === selectedAge;
 
-    const categoryMatch =
-      selectedCategory === "All" ||
-      game.category === selectedCategory;
+      const categoryMatch =
+        selectedCategory === "All" ||
+        game.category === selectedCategory;
 
-    const searchMatch =
-      game.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+      const searchMatch =
+        game.title
+          .toLowerCase()
+          .includes(search.toLowerCase());
 
-    return ageMatch && categoryMatch && searchMatch;
+      return (
+        ageMatch &&
+        categoryMatch &&
+        searchMatch
+      );
 
-  });
-
-
+    });
 
   /* FAVORITES */
 
@@ -118,10 +140,14 @@ const Games = () => {
     e.stopPropagation();
 
     const existing =
-      JSON.parse(localStorage.getItem("favorites")) || [];
+      JSON.parse(
+        localStorage.getItem("favorites")
+      ) || [];
 
     const alreadyExists =
-      existing.find((item) => item.id === game.id);
+      existing.find(
+        (item) => item.id === game.id
+      );
 
     if (alreadyExists) {
       alert("Already in favorites");
@@ -138,8 +164,6 @@ const Games = () => {
     alert("Added to favorites ❤️");
 
   };
-
-
 
   return (
 
@@ -194,8 +218,6 @@ const Games = () => {
 
       </section>
 
-
-
       {/* MAIN SECTION */}
 
       <section className="
@@ -212,8 +234,6 @@ const Games = () => {
         lg:grid-cols-4
         gap-10
         ">
-
-
 
           {/* SIDEBAR */}
 
@@ -234,8 +254,6 @@ const Games = () => {
               Filters
             </h2>
 
-
-
             {/* SEARCH */}
 
             <div className="relative mb-10">
@@ -252,7 +270,9 @@ const Games = () => {
                 type="text"
                 placeholder="Search games..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                onChange={(e) =>
+                  setSearch(e.target.value)
+                }
                 className="
                 w-full
                 border
@@ -268,8 +288,6 @@ const Games = () => {
               />
 
             </div>
-
-
 
             {/* AGE FILTER */}
 
@@ -293,7 +311,9 @@ const Games = () => {
 
                   <button
                     key={age}
-                    onClick={() => setSelectedAge(age)}
+                    onClick={() =>
+                      setSelectedAge(age)
+                    }
                     className={`
                     px-4
                     py-3
@@ -315,8 +335,6 @@ const Games = () => {
               </div>
 
             </div>
-
-
 
             {/* CATEGORY FILTER */}
 
@@ -373,8 +391,6 @@ const Games = () => {
 
           </div>
 
-
-
           {/* PRODUCTS */}
 
           <div className="lg:col-span-3">
@@ -406,8 +422,6 @@ const Games = () => {
               </div>
 
             </div>
-
-
 
             {/* GRID */}
 
@@ -441,8 +455,6 @@ const Games = () => {
                   "
                 >
 
-
-
                   {/* AGE BADGE */}
 
                   <span className="
@@ -459,8 +471,6 @@ const Games = () => {
                   ">
                     {game.age}
                   </span>
-
-
 
                   {/* FAVORITE BUTTON */}
 
@@ -489,8 +499,6 @@ const Games = () => {
                     <FaHeart />
                   </button>
 
-
-
                   {/* IMAGE */}
 
                   <div className="
@@ -512,8 +520,6 @@ const Games = () => {
                     />
 
                   </div>
-
-
 
                   {/* CONTENT */}
 
