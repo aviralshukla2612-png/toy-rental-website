@@ -1,189 +1,388 @@
-import React from 'react';
-import imgc from '../assets/about.jpg';
-import choose from '../assets/about1.jfif';
-import delivery from '../assets/about2.jfif';
-import play from '../assets/about3.jfif';
-import exchange from '../assets/about4.jfif';
-import variety from '../assets/about5.jfif';
-import sanitized from '../assets/about6.jfif';
-import affordable from '../assets/about7.jpg';
-import eco from '../assets/about8.png';
-import fast from '../assets/about9.jfif';
-import easy from '../assets/about10.webp';
-import toy from '../assets/about11.jfif';
-import happy from '../assets/about12.jfif';
-import city from '../assets/about13.jfif';
-import star from '../assets/about14.jfif';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
+import imgc from "../assets/about.jpg";
 
+import choose from "../assets/about1.jfif";
+import delivery from "../assets/about2.jfif";
+import play from "../assets/about3.jfif";
+import exchange from "../assets/about4.jfif";
 
- const About = () => {
+import variety from "../assets/about5.jfif";
+import sanitized from "../assets/about6.jfif";
+import affordable from "../assets/about7.jpg";
+import eco from "../assets/about8.png";
+import fast from "../assets/about9.jfif";
+import easy from "../assets/about10.webp";
 
-  const steps =[
-    {
-      img:choose,
-      title:"CHOOSE TOYS",
-      description:"Browse our collection and select toys suitable for your child's age.",
-    },
-    {
-      img:delivery,
-      title:"DELIVERY TO YOUR HOME",
-      description:"We deliver sanitized toys directly to your doorstep.",
-    },
-    {
-      img:play,
-      title:"PLAY & LEARN",
-      description:"Kids play, learn and enjoy with our educational toys.",
-    },
-    {
-      img:exchange,
-      title:"RETURN OR EXCHANGE",
-      description:"Return toys when done and exchange them for new ones anytime.",
-    },
-  ]
+import toy from "../assets/about11.jfif";
+import happy from "../assets/about12.jfif";
+import city from "../assets/about13.jfif";
+import star from "../assets/about14.jfif";
 
-  const features =[
-    {
-      img:variety,
-      title:"Wide Variety of Toys",
-    },
-    {
-      img:sanitized,
-      title:"100% Sanitized Toys",
-    },
-    {
-      img:affordable,
-      title:"Affordable Rental Plans"
-    },
-    {
-      img:eco,
-      title:"Eco-Friendly Toy Sharing",
-    },
-    {
-      img:fast,
-      title:"Fast Delivery",
-    },
-    {
-      img:easy,
-      title:"Easy Exchange Policy"
-    },
-  ]
+import { FaArrowRight } from "react-icons/fa";
 
-  const stats =[
+const About = () => {
+
+   const navigate = useNavigate();
+
+  const steps = [
     {
-      img:toy,
-      number:"500+",
-      title:"Toys Availabel",
-    },
-      {
-      img:happy,
-      number:"1000+",
-      title:"Happy Families",
-    },
-      {
-      img:city,
-      number:"20+",
-      title:"Cities Served"
-    },
-       {
-      img:star,
-      number:"4.8",
-      title:"Customer Rating"
+      img: choose,
+      title: "Choose Toys",
+      description:
+        "Browse our collection and select toys suitable for your child's age.",
     },
 
-  ]
+    {
+      img: delivery,
+      title: "Delivery To Your Home",
+      description:
+        "We deliver sanitized toys directly to your doorstep.",
+    },
+
+    {
+      img: play,
+      title: "Play & Learn",
+      description:
+        "Kids play, learn and enjoy with our educational toys.",
+    },
+
+    {
+      img: exchange,
+      title: "Return Or Exchange",
+      description:
+        "Return toys anytime and exchange them for new ones.",
+    },
+  ];
+
+  const features = [
+    {
+      img: variety,
+      title: "Wide Variety of Toys",
+    },
+
+    {
+      img: sanitized,
+      title: "100% Sanitized Toys",
+    },
+
+    {
+      img: affordable,
+      title: "Affordable Rental Plans",
+    },
+
+    {
+      img: eco,
+      title: "Eco-Friendly Toy Sharing",
+    },
+
+    {
+      img: fast,
+      title: "Fast Delivery",
+    },
+
+    {
+      img: easy,
+      title: "Easy Exchange Policy",
+    },
+  ];
+
+  const stats = [
+    {
+      img: toy,
+      number: "500+",
+      title: "Toys Available",
+    },
+
+    {
+      img: happy,
+      number: "1000+",
+      title: "Happy Families",
+    },
+
+    {
+      img: city,
+      number: "20+",
+      title: "Cities Served",
+    },
+
+    {
+      img: star,
+      number: "4.8",
+      title: "Customer Rating",
+    },
+  ];
+
+  const cardStyle =
+    "bg-white rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300";
+
   return (
-    <>
-      <div className="bg-gray-100 py-10 relative mt-10">
-        <h1 className="font-bold text-4xl text-center mb-12">ABOUT US</h1>
+    <div className="bg-slate-100">
 
-        <div className="flex flex-col md:flex-row items-center px-20 gap-10">
+      {/* HERO */}
 
-         
-          <div className="md:w-1/2">
-            <p className="text-lg font-bold text-gray-700 mb-8">
-              Welcome to our toy rental website, where we believe in the power of play and the joy it brings to children.
-              Our mission is to provide a convenient and affordable way for families to access a wide variety of toys
-              without the need for long-term ownership.<br/> 
+      <section className="bg-slate-900 py-24 text-white">
 
-              Children grow quickly and their interests change, which is why we offer a diverse selection of toys that
-              cater to different age groups and developmental stages.<br/> 
-              By renting toys from us, parents can save money, reduce clutter, and promote sustainability by giving toys
-              a second life. We are committed to providing high-quality, clean, and safe toys that inspire creativity,
-              learning, and fun for children of all ages.
-            </p>
+        <div className="max-w-7xl mx-auto px-6 text-center">
+
+          <p className="uppercase tracking-[4px] text-sm text-gray-400 mb-4">
+            About Us
+          </p>
+
+          <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+            Creating Joyful Learning Through Play
+          </h1>
+
+          <p className="mt-6 text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            We help families discover educational toys in a smarter,
+            affordable and eco-friendly way through our modern toy rental
+            platform.
+          </p>
+
+        </div>
+
+      </section>
+
+      {/* ABOUT */}
+
+      <section className="py-24">
+
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+
+          {/* IMAGE */}
+
+          <div className="overflow-hidden rounded-3xl shadow-xl">
+
+            <img
+              src={imgc}
+              alt="About"
+              className="w-full h-[500px] object-cover hover:scale-105 transition duration-500"
+            />
+
           </div>
 
-         
-          <div className="md:w-1/2 ">
-            <img src={imgc} alt="Toy Banner" className="rounded-lg shadow-lg w-full h-[400px]"/>
+          {/* CONTENT */}
+
+          <div>
+
+            <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+              Who We Are
+            </p>
+
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight">
+              Making Learning More Fun For Every Child
+            </h2>
+
+            <p className="mt-8 text-gray-600 leading-relaxed text-lg">
+              Children grow quickly and their interests constantly evolve.
+              Our mission is to provide parents with a smarter way to access
+              educational toys without unnecessary clutter or expensive
+              purchases.
+            </p>
+
+            <p className="mt-5 text-gray-600 leading-relaxed text-lg">
+              We offer high-quality, sanitized and engaging toys that inspire
+              creativity, imagination and skill development while promoting
+              sustainability through toy sharing.
+            </p>
+
+            <button 
+              className="mt-10 inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-2xl hover:bg-slate-800 transition"
+              onClick={() => navigate("/game")}
+            >
+
+              Explore Collection
+
+              <FaArrowRight />
+
+            </button>
+
           </div>
 
         </div>
-      </div>
-      <div className="bg-gray-100 py-10 relative mt-10 ">
-        <h1 className="font-bold text-4xl text-center mb-12">HOW OUR TOY RENTAL WORK</h1>
-         <div className='grid md:grid-cols-4 gap-8 px-8 max-w-7xl mx-auto'>
-           {steps.map((step,index)=>(
-            <div key={index} className='bg-white rounded-xl shadow-md p-6 text-center hover:shadow-xl hover:scale-105 transition duration-300 cursor-pointer'>
-              <img src={step.img} alt={step.title} className='w-32 h-32 object-contain mx-auto mb-4'/>
-              <h3 className='text-lg font-semibold mb-2'>{step.title}</h3>
-              <p className='text-gray-600 text-sm'>{step.description}</p>
+
+      </section>
+
+      {/* HOW IT WORKS */}
+
+      <section className="bg-white py-24">
+
+        <div className="max-w-7xl mx-auto px-6">
+
+          <div className="text-center mb-16">
+
+            <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+              Process
+            </p>
+
+            <h2 className="text-5xl font-bold text-slate-900">
+              How Our Toy Rental Works
+            </h2>
+
+          </div>
+
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+
+            {steps.map((step, index) => (
+
+              <div key={index} className={`${cardStyle} p-8 text-center`}>
+
+                <img
+                  src={step.img}
+                  alt={step.title}
+                  className="w-24 h-24 object-contain mx-auto mb-6"
+                />
+
+                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  {step.title}
+                </h3>
+
+                <p className="text-gray-600 leading-relaxed">
+                  {step.description}
+                </p>
+
               </div>
-           ))}
-         </div>
-      </div>
 
-     <div className="bg-gray-100 py-10 relative mt-10 ">
-        <h1 className="font-bold text-4xl text-center mb-12">WHY CHOOSE US</h1>
-         <div className='grid grid-cols-2 md:grid-cols-6 gap-10 max-w-6xl mx-auto px-6'>
-          {features.map((item,index)=>(
-            <div key={index} className='flex flex-col items-center text-center'>
-              <img src={item.img} alt={item.title} className='w-32 h-32 object-contain mb-4'/>
-              <h3 className='font-semibold text-lg'>{item.title}</h3>
-            </div>
-          ))}
-         </div>
-      </div>
+            ))}
 
-    <div className="bg-gray-100 py-16 mt-10">
+          </div>
 
-  <h1 className="font-bold text-4xl text-center mb-12">
-    OUR ACHIEVEMENTS
-  </h1>
+        </div>
 
-  <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto px-6">
+      </section>
 
-    {stats.map((item, index) => (
-      <div
-        key={index}
-        className="bg-white rounded-xl shadow-md p-8 text-center hover:shadow-xl transition duration-300 "
-      >
+      {/* FEATURES */}
 
-        <img
-          src={item.img}
-          alt={item.title}
-          className="w-40 h-40 mx-auto mb-4 object-contain"
-        />
+      <section className="py-24">
 
-        <h2 className="text-3xl font-bold text-purple-600">
-          {item.number}
-        </h2>
+        <div className="max-w-7xl mx-auto px-6">
 
-        <p className="text-gray-600 mt-2">
-          {item.title}
-        </p>
+          <div className="text-center mb-16">
 
-      </div>
-    ))}
+            <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+              Why Choose Us
+            </p>
 
-  
+            <h2 className="text-5xl font-bold text-slate-900">
+              Trusted By Modern Families
+            </h2>
 
-  </div>
+          </div>
 
-</div>
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-8">
 
-    </>
+            {features.map((item, index) => (
+
+              <div
+                key={index}
+                className={`${cardStyle} p-6 flex flex-col items-center text-center`}
+              >
+
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-20 h-20 object-contain mb-5"
+                />
+
+                <h3 className="font-semibold text-slate-900">
+                  {item.title}
+                </h3>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* STATS */}
+
+      <section className="bg-slate-900 py-24 text-white">
+
+        <div className="max-w-7xl mx-auto px-6">
+
+          <div className="text-center mb-16">
+
+            <p className="uppercase tracking-[4px] text-sm text-gray-400 mb-4">
+              Achievements
+            </p>
+
+            <h2 className="text-5xl font-bold">
+              Our Growing Community
+            </h2>
+
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+
+            {stats.map((item, index) => (
+
+              <div
+                key={index}
+                className="bg-white text-black rounded-3xl p-8 text-center hover:-translate-y-2 transition-all duration-300"
+              >
+
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-24 h-24 object-contain mx-auto mb-6"
+                />
+
+                <h2 className="text-4xl font-bold mb-3">
+                  {item.number}
+                </h2>
+
+                <p className="text-gray-600">
+                  {item.title}
+                </p>
+
+              </div>
+
+            ))}
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* CTA */}
+
+      <section className="bg-white py-24">
+
+        <div className="max-w-4xl mx-auto px-6 text-center">
+
+          <p className="uppercase tracking-[4px] text-sm text-gray-500 mb-4">
+            Get Started
+          </p>
+
+          <h2 className="text-5xl font-bold text-slate-900 leading-tight">
+            Ready To Explore Our Toy Collection?
+          </h2>
+
+          <p className="mt-6 text-lg text-gray-600 leading-relaxed">
+            Discover educational toys that inspire creativity, learning and
+            endless fun for your children.
+          </p>
+
+          <button className="mt-10 inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-2xl hover:bg-slate-800 transition" onClick={() => navigate("/game")}>
+
+            Browse Toys
+
+            <FaArrowRight />
+
+          </button>
+
+        </div>
+
+      </section>
+
+    </div>
   );
 };
+
 export default About;

@@ -1,181 +1,316 @@
-import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import img from '../assets/image.png';
-import { FaShoppingCart, FaBars, FaTimes, FaUser } from 'react-icons/fa';
-import { useData } from '../context/DataProvider';
-import { Dashboard } from '../pages/Dashboard';
-export const Navbar = () => {
-  const navigate = useNavigate();
-  const { cart, isLogIn, token, user } = useData();
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdown, setDropdow] = useState(false);
+import React, { useState } from "react";
 
-  const linkItems = [
-    { name: 'HOME', link: '/' },
-    { name: 'ABOUT', link: '/about' },
-    { name: 'GAMES', link: '/game' },
-    { name: 'PLANS', link: '/plan' },
-    { name: 'FRANCHISE', link: '/fran' },
-    { name: 'BLOGS', link: '/blog' },
-    { name: 'CONTACT US', link: '/contact' }
+import {
+  Link,
+  NavLink,
+  useNavigate,
+} from "react-router-dom";
+
+import {
+  FaBars,
+  FaShoppingCart,
+  FaTimes,
+} from "react-icons/fa";
+
+import img from "../assets/image.png";
+
+import { useData } from "../context/DataProvider";
+
+export const Navbar = () => {
+
+  const navigate = useNavigate();
+
+  const {
+    cart,
+    isLogIn,
+    token,
+    user,
+    logout,
+  } = useData();
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
+
+  const links = [
+    { name: "HOME", path: "/" },
+    { name: "ABOUT", path: "/about" },
+    { name: "GAMES", path: "/game" },
+    { name: "PLANS", path: "/plan" },
+    { name: "FRANCHISE", path: "/fran" },
+    { name: "BLOGS", path: "/blog" },
+    { name: "CONTACT", path: "/contact" },
   ];
 
+  const navStyle = ({ isActive }) =>
+    `px-4 py-2 rounded-xl font-medium transition-all duration-300
+    ${
+      isActive
+        ? "bg-black text-white"
+        : "text-gray-700 hover:bg-gray-100"
+    }`;
 
-  const handleDropdown = () => {
-    setDropdow(prev => !prev);
+  const buttonStyle =
+    "px-5 py-2.5 rounded-xl transition duration-300";
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
   };
 
   return (
     <>
+      {/* TOP BAR */}
 
-      <div className="bg-teal-400 text-white flex flex-col md:flex-row items-center justify-between px-4 py-2 text-sm md:text-base">
-        <div>
-          Contact us on
-          <span className="mx-2 font-semibold text-black">+91 931 931 7177</span>
-          or
-          <span className="mx-2 font-semibold text-black">info.curiokid@gmail.com</span>
-        </div>
+      <div className="bg-slate-900 text-sm text-gray-300">
 
-        <div className="mt-2 md:mt-0">
-          
+        <div className="max-w-7xl mx-auto px-6 py-3 flex flex-col md:flex-row items-center justify-between gap-3">
+
+          <div className="text-center md:text-left">
+
+            Contact us:
+
+            <span className="ml-2 text-white font-medium">
+              +91 931 931 7177
+            </span>
+
+            <span className="hidden md:inline mx-2">|</span>
+
+            <span className="text-white">
+              info.curiokid@gmail.com
+            </span>
+
+          </div>
+
+          {!isLogIn && (
+
+            <div className="flex items-center gap-3">
+
               <button
-                className='text-black hover:bg-white px-2 py-1 mx-2 rounded'
                 onClick={() => navigate("/login")}
+                className="hover:text-white transition"
               >
                 Login
               </button>
+
               <button
-                className='text-black hover:bg-white px-2 py-1 rounded'
                 onClick={() => navigate("/register")}
+                className={`${buttonStyle} bg-white text-black hover:bg-gray-200`}
               >
                 Register
               </button>
-            
+
+            </div>
+
+          )}
+
         </div>
+
       </div>
 
+      {/* MAIN NAVBAR */}
 
-      <div className="w-full bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+          {/* LOGO */}
 
           <img
             src={img}
-            className="h-10 md:h-12 cursor-pointer"
+            alt="Logo"
+            className="h-14 object-contain cursor-pointer"
             onClick={() => navigate("/")}
           />
 
-          <ul className="hidden md:flex items-center gap-6 text-sm font-semibold">
-            {linkItems.map((data, i) => (
-              <li key={i}>
+          {/* DESKTOP LINKS */}
+
+          <ul className="hidden md:flex items-center gap-2">
+
+            {links.map((item) => (
+
+              <li key={item.name}>
+
                 <NavLink
-                  to={data.link}
-                  className={({ isActive }) =>
-                    `px-3 py-2 rounded transition ${isActive
-                      ? "bg-yellow-400 text-white"
-                      : "text-gray-700 hover:bg-yellow-300 hover:text-white"
-                    }`
-                  }
+                  to={item.path}
+                  className={navStyle}
                 >
-                  {data.name}
+                  {item.name}
                 </NavLink>
+
               </li>
+
             ))}
-          </ul>
-
-
-         <div className="flex items-center gap-4">
-
-  {isLogIn && token ? (
-    <div className="relative">
-      
-   
-     <div
-  className="w-10 h-10 flex items-center justify-center rounded-full 
-             bg-amber-100 text-amber-500 border border-amber-200 
-             cursor-pointer capitalize"
-  onClick={handleDropdown}
->
-  {user?.username?.slice(0, 1)}
-</div>
-
-     
-      {dropdown && (
-        <div className="absolute right-0 mt-3 w-52 bg-white rounded-xl shadow-xl border border-gray-200 py-3 z-50">
-
-          <ul className="text-gray-700 text-sm">
-
-            <li><Link to="/dash" className="block px-4 py-2 hover:bg-gray-100 transition">Dashboard</Link></li>
-            <li><Link to="/cart" className="block px-4 py-2 hover:bg-gray-100 transition">Order</Link></li>
-
-           
-
-            <li className="border-t mt-2 pt-2">
-              <button
-                className="w-full text-left px-4 py-2 text-red-500 cursor-pointer hover:bg-red-100 transition rounded-md"onClick={()=>navigate('/')}>
-                Log Out
-              </button>
-            </li>
 
           </ul>
+
+          {/* RIGHT SIDE */}
+
+          <div className="flex items-center gap-4">
+
+            {/* USER */}
+
+            {isLogIn && token ? (
+
+              <div className="relative">
+
+                <div
+                  onClick={() => setDropdown(!dropdown)}
+                  className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center cursor-pointer font-semibold uppercase"
+                >
+                  {user?.username?.slice(0, 1)}
+                </div>
+
+                {dropdown && (
+
+                  <div className="absolute right-0 mt-4 w-64 bg-white rounded-2xl shadow-2xl border overflow-hidden">
+
+                    <div className="px-5 py-4 border-b">
+
+                      <p className="text-sm text-gray-500">
+                        Welcome Back
+                      </p>
+
+                      <h3 className="font-semibold mt-1">
+                        {user?.username}
+                      </h3>
+
+                    </div>
+
+                    <Link
+                      to="/dash"
+                      className="block px-5 py-3 hover:bg-gray-100"
+                    >
+                      Dashboard
+                    </Link>
+
+                    <Link
+                      to="/cart"
+                      className="block px-5 py-3 hover:bg-gray-100"
+                    >
+                      Orders
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-5 py-3 text-red-500 hover:bg-red-50"
+                    >
+                      Logout
+                    </button>
+
+                  </div>
+
+                )}
+
+              </div>
+
+            ) : (
+
+              <Link
+                to="/login"
+                className={`hidden md:block border border-gray-300 text-gray-700 hover:bg-gray-100 ${buttonStyle}`}
+              >
+                Login
+              </Link>
+
+            )}
+
+            {/* CART */}
+
+            <button
+              onClick={() => navigate("/cart")}
+              className="relative flex items-center gap-2 bg-black text-white px-5 py-3 rounded-xl hover:bg-slate-800 transition"
+            >
+
+              <FaShoppingCart />
+
+              <span className="hidden sm:inline">
+                Cart
+              </span>
+
+              {cart.length > 0 && (
+
+                <span className="absolute -top-2 -right-2 bg-red-500 text-xs w-5 h-5 rounded-full flex items-center justify-center">
+
+                  {cart.length}
+
+                </span>
+
+              )}
+
+            </button>
+
+            {/* MOBILE BUTTON */}
+
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="md:hidden text-2xl text-gray-700"
+            >
+              {menuOpen ? <FaTimes /> : <FaBars />}
+            </button>
+
+          </div>
+
         </div>
-      )}
-    </div>
-  ) : (
-    <Link
-      className="px-4 py-2 border border-amber-400 rounded-full 
-                 text-amber-600 hover:bg-amber-100 transition"
-      to="/login"
-    >
-      Log In
-    </Link>
-  )}
 
-  
-  <button
-    onClick={() => navigate("/cart")}
-    className="relative flex items-center gap-2 bg-yellow-400 
-               hover:bg-yellow-500 text-black px-4 py-2 
-               rounded-full shadow-md transition"
-  >
-    <FaShoppingCart />
-    <span className="hidden sm:inline font-medium">Cart</span>
-
-    {cart.length > 0 && (
-      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs 
-                       w-5 h-5 flex items-center justify-center rounded-full shadow">
-        {cart.length}
-      </span>
-    )}
-  </button>
-
-  <button
-    className="md:hidden text-2xl p-2 rounded-md hover:bg-gray-100 transition"
-    onClick={() => setMenuOpen(!menuOpen)}
-  >
-    {menuOpen ? <FaTimes /> : <FaBars />}
-  </button>
-
-</div>
-        </div>
+        {/* MOBILE MENU */}
 
         {menuOpen && (
-          <div className="md:hidden bg-white shadow-lg px-4 py-3">
-            <ul className="flex flex-col gap-3 text-sm font-semibold">
-              {linkItems.map((data, i) => (
-                <li key={i}>
+
+          <div className="md:hidden bg-white border-t px-6 py-6">
+
+            <ul className="flex flex-col gap-3">
+
+              {links.map((item) => (
+
+                <li key={item.name}>
+
                   <NavLink
-                    to={data.link}
+                    to={item.path}
                     onClick={() => setMenuOpen(false)}
-                    className="block px-3 py-2 rounded text-gray-700 hover:bg-yellow-300 hover:text-white"
+                    className={navStyle}
                   >
-                    {data.name}
+                    {item.name}
                   </NavLink>
+
                 </li>
+
               ))}
+
             </ul>
+
+            {!isLogIn && (
+
+              <div className="flex flex-col gap-3 mt-6">
+
+                <button
+                  onClick={() => {
+                    navigate("/login");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full border border-gray-300 py-3 rounded-xl"
+                >
+                  Login
+                </button>
+
+                <button
+                  onClick={() => {
+                    navigate("/register");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full bg-black text-white py-3 rounded-xl hover:bg-slate-800 transition"
+                >
+                  Register
+                </button>
+
+              </div>
+
+            )}
+
           </div>
+
         )}
-      </div>
+
+      </header>
     </>
   );
 };

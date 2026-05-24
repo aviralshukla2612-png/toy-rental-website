@@ -1,132 +1,756 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import imga from '../assets/games1.webp';
-import imgb from '../assets/games2.webp';
-import imgc from '../assets/games3.webp';
-import imgd from '../assets/games4.webp';
-import imge from '../assets/games5.webp';
-import imgf from '../assets/games6.webp';
+import React, { useState } from "react";
+
+import { useParams, useNavigate } from "react-router-dom";
+
+import { motion } from "framer-motion";
+
+import { toast } from "react-hot-toast";
+
+import {
+  FaStar,
+  FaHeart,
+  FaMinus,
+  FaPlus,
+} from "react-icons/fa";
+
 import { useData } from "../context/DataProvider";
+
+import imga from "../assets/games1.webp";
+import imgb from "../assets/games2.webp";
+import imgc from "../assets/games3.webp";
+import imgd from "../assets/games4.webp";
+import imge from "../assets/games5.webp";
+import imgf from "../assets/games6.webp";
 
 
 
 const products = [
+
   {
     id: 1,
     img: imga,
     title: "Bounce And Win",
-    description: "Race to recreate the pattern on the challenge card by bouncing balls into the grid. Flip over a challenge card to determine the pattern. The first to complete the patterns wins the card and the first to earn 3 cards with the games",
+    category: "Board Games",
     age: "4-7 Years",
-    benefits: "Improves coordination",
-    Includes:"1 tray, 18 balls, and 10 cards",
-    Price:"299"
+    rating: "4.8",
+    price: 299,
+
+    description:
+      "Race to recreate the pattern on the challenge card by bouncing balls into the grid.",
+
+    features: [
+      "Improves coordination",
+      "Boosts focus and reflexes",
+      "Interactive learning game",
+    ],
+
+    includes:
+      "1 tray, 18 balls and 10 cards",
   },
+
+
+
   {
     id: 2,
     img: imgb,
     title: "Catch Ball Game",
-    description: "Playing a catch ball game with a little child is the best way to spend your precious time with them thus ensuring the development of the parent-child relationship. Bring home this amazing catch ball game and indulge in playing with your child for hours.",
+    category: "Outdoor Fun",
     age: "4-7 Years",
-    benefits: "Hand-eye coordination",
-    Includes:"2 ball catcher and 4 balls",
-     Price:"299"
+    rating: "4.7",
+    price: 299,
+
+    description:
+      "Fun catch ball game designed to improve parent-child interaction.",
+
+    features: [
+      "Improves hand-eye coordination",
+      "Fun physical activity",
+      "Perfect outdoor game",
+    ],
+
+    includes:
+      "2 ball catchers and 4 balls",
   },
-   {
+
+
+
+  {
     id: 3,
     img: imgc,
-    title: "Number Duck Shape Tray With Knob",
-    description: "A fine crafted soft wooden puzzle offers a hand-on introduction to numbers 1 to 20. Children learn through play as they fit the brightly colored wooden pieces in the cavities of the board.",
+    title: "Number Duck Shape Tray",
+    category: "Educational Games",
     age: "1-4 Years",
-    benefits: " Improving hand-eye coordination and encouraging the development of essential motor skills.",
-    Includes:"1 Little Genius Number Duck Shape Tray with Knob, Multi-Colors",
-     Price:"299"
+    rating: "4.9",
+    price: 299,
+
+    description:
+      "Wooden puzzle introducing numbers 1 to 20 through interactive play.",
+
+    features: [
+      "Develops motor skills",
+      "Teaches numbers",
+      "Bright educational design",
+    ],
+
+    includes:
+      "1 wooden tray",
   },
+
+
+
   {
     id: 4,
     img: imgd,
     title: "Ship Tray",
-    description: "While the children are engrossed in fixing together pieces of the attractive jigsaw puzzle, they do not realize that the puzzle is secretly contributing to their mental growth.",
+    category: "Puzzle Games",
     age: "1-4 Years",
-    benefits: "it helps to build their imagination and sharpness their power of observation ",
-    Includes:"1 tray and 10 cards",
-     Price:"299"
+    rating: "4.6",
+    price: 299,
+
+    description:
+      "Colorful jigsaw puzzle helping children improve imagination and observation.",
+
+    features: [
+      "Sharpens observation",
+      "Improves imagination",
+      "Puzzle-solving skills",
+    ],
+
+    includes:
+      "1 tray and cards",
   },
+
+
+
   {
     id: 5,
     img: imge,
     title: "Flipping Frog",
-    description: "The object of the game is simple: Be the player with the most frogs in the tree at the end of a round. Win three rounds, and you win the game. However, it’s not as easy as it looks. The flexible, rubbery plastic frogs are shaped to hang easily from the tree branches, but when the branches pop up, these little amphibian friends tend to go flying.",
+    category: "Board Games",
     age: "4-7 Years",
-    benefits: "Improves aim, motor skills, and hand-eye coordination",
-    Includes:"24 frogs, 4 launchers, 1 base, 1 tree trunk, 4 branches, 1 treetop, and 1 instructional sheet; this game requires three AA batteries (not included)",
-     Price:"299"  
-},
+    rating: "4.8",
+    price: 299,
+
+    description:
+      "Exciting frog launching game designed for fun and coordination.",
+
+    features: [
+      "Motor skill improvement",
+      "Interactive multiplayer game",
+      "Fun learning experience",
+    ],
+
+    includes:
+      "24 frogs and accessories",
+  },
+
+
+
   {
     id: 6,
     img: imgf,
-    title: "AL-92 Learning Dyno Number 1 to 30",
-     description: [
-    "This Cute Dyno shaped colorful learning board includes 30 pieces of smooth numbers painted in different colors",
-    "This toy has number puzzles ranging from 1–30",
-    "Helps develop fine motor skills, creativity, and imagination",
-    "Bright colors make learning fun",
-    "Improves logical thinking and hand-eye coordination",
-    "Each number has a small knob for easy handling"
-  ],
+    title: "Learning Dyno",
+    category: "Educational Games",
     age: "4-7 Years",
-    benefits: "Counting skills",
-    Includes:"1 tray and 30 cards",
-     Price:"299"
-  }
+    rating: "4.9",
+    price: 299,
+
+    description:
+      "Colorful dinosaur learning board helping children learn numbers 1 to 30.",
+
+    features: [
+      "Improves counting skills",
+      "Boosts creativity",
+      "Develops logical thinking",
+    ],
+
+    includes:
+      "1 tray and number pieces",
+  },
+
 ];
 
 
 
-  export default function ProductDetail() {
+export default function ProductDetail() {
 
   const { id } = useParams();
+
+  const navigate = useNavigate();
+
   const { addToCart } = useData();
 
-  const product = products.find(p => p.id === Number(id));
+  const [quantity, setQuantity] = useState(1);
 
-  if (!product) return <h2>Product not found</h2>;
+
+
+  const product = products.find(
+    (p) => p.id === Number(id)
+  );
+
+
+
+  if (!product) {
+
+    return (
+
+      <div className="
+      h-screen
+      flex
+      items-center
+      justify-center
+      text-3xl
+      font-bold
+      ">
+        Product Not Found
+      </div>
+
+    );
+
+  }
+
+
+
+  const relatedProducts = products.filter(
+    (item) =>
+      item.category === product.category &&
+      item.id !== product.id
+  );
+
+
+
+  const handleAddToCart = () => {
+
+    addToCart({
+      ...product,
+      quantity,
+    });
+
+    toast.success("Added to Cart");
+
+  };
+
+
 
   return (
-    <div className="w-10/12 mx-auto mt-10 flex gap-10">
-      
-      <img src={product.img} className="w-1/2 mb-5" />
 
-      <div>
-        <h1 className="text-3xl font-bold">{product.title}</h1>
+    <>
 
-        <h2 className="mt-4 font-semibold">Description:</h2>
+      {/* HERO */}
 
-        {Array.isArray(product.description) ? (
-          <ul className="mt-2 list-disc pl-5 space-y-2">
-            {product.description.map((item, index) => (
-              <li key={index}>{item}</li>
+      <section className="
+      bg-slate-900
+      py-20
+      text-white
+      ">
+
+        <div className="
+        max-w-7xl
+        mx-auto
+        px-6
+        ">
+
+          <p className="
+          text-gray-400
+          text-sm
+          uppercase
+          tracking-[3px]
+          ">
+            Home / Games / Product
+          </p>
+
+          <h1 className="
+          text-5xl
+          font-bold
+          mt-4
+          ">
+            {product.title}
+          </h1>
+
+        </div>
+
+      </section>
+
+
+
+      {/* PRODUCT SECTION */}
+
+      <section className="
+      bg-slate-50
+      py-24
+      ">
+
+        <div className="
+        max-w-7xl
+        mx-auto
+        px-6
+        grid
+        grid-cols-1
+        lg:grid-cols-2
+        gap-16
+        items-center
+        ">
+
+
+
+          {/* IMAGE */}
+
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="
+            bg-white
+            rounded-3xl
+            p-10
+            shadow-sm
+            overflow-hidden
+            "
+          >
+
+            <img
+              src={product.img}
+              alt={product.title}
+              className="
+              w-full
+              h-[500px]
+              object-contain
+              hover:scale-105
+              transition
+              duration-500
+              "
+            />
+
+          </motion.div>
+
+
+
+          {/* CONTENT */}
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+
+
+
+            {/* BADGES */}
+
+            <div className="
+            flex
+            flex-wrap
+            gap-3
+            mb-6
+            ">
+
+              <span className="
+              bg-black
+              text-white
+              px-4
+              py-2
+              rounded-full
+              text-sm
+              ">
+                {product.category}
+              </span>
+
+              <span className="
+              bg-gray-200
+              px-4
+              py-2
+              rounded-full
+              text-sm
+              ">
+                Age: {product.age}
+              </span>
+
+            </div>
+
+
+
+            {/* TITLE */}
+
+            <h1 className="
+            text-5xl
+            font-bold
+            text-slate-900
+            leading-tight
+            ">
+              {product.title}
+            </h1>
+
+
+
+            {/* RATING */}
+
+            <div className="
+            flex
+            items-center
+            gap-2
+            mt-6
+            ">
+
+              <div className="
+              flex
+              items-center
+              text-yellow-400
+              gap-1
+              ">
+
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+                <FaStar />
+
+              </div>
+
+              <span className="
+              text-gray-600
+              ">
+                ({product.rating})
+              </span>
+
+            </div>
+
+
+
+            {/* PRICE */}
+
+            <h2 className="
+            text-4xl
+            font-bold
+            text-black
+            mt-8
+            ">
+              ₹ {product.price}
+            </h2>
+
+
+
+            {/* DESCRIPTION */}
+
+            <p className="
+            mt-8
+            text-lg
+            text-gray-600
+            leading-relaxed
+            ">
+              {product.description}
+            </p>
+
+
+
+            {/* FEATURES */}
+
+            <div className="mt-10">
+
+              <h3 className="
+              text-2xl
+              font-bold
+              mb-5
+              ">
+                Features
+              </h3>
+
+              <ul className="
+              space-y-4
+              text-gray-600
+              ">
+
+                {product.features.map((feature, index) => (
+
+                  <li
+                    key={index}
+                    className="
+                    flex
+                    items-center
+                    gap-3
+                    "
+                  >
+
+                    <span className="
+                    w-2
+                    h-2
+                    rounded-full
+                    bg-black
+                    "></span>
+
+                    {feature}
+
+                  </li>
+
+                ))}
+
+              </ul>
+
+            </div>
+
+
+
+            {/* INCLUDES */}
+
+            <div className="
+            mt-10
+            bg-white
+            rounded-2xl
+            p-6
+            shadow-sm
+            ">
+
+              <h3 className="
+              text-xl
+              font-bold
+              mb-3
+              ">
+                What's Included
+              </h3>
+
+              <p className="text-gray-600">
+                {product.includes}
+              </p>
+
+            </div>
+
+
+
+            {/* QUANTITY */}
+
+            <div className="
+            flex
+            items-center
+            gap-6
+            mt-10
+            ">
+
+              <div className="
+              flex
+              items-center
+              border
+              border-gray-300
+              rounded-2xl
+              overflow-hidden
+              ">
+
+                <button
+                  onClick={() =>
+                    setQuantity((prev) =>
+                      prev > 1 ? prev - 1 : 1
+                    )
+                  }
+                  className="
+                  px-5
+                  py-4
+                  hover:bg-gray-100
+                  transition
+                  "
+                >
+                  <FaMinus />
+                </button>
+
+                <span className="
+                px-6
+                font-semibold
+                ">
+                  {quantity}
+                </span>
+
+                <button
+                  onClick={() =>
+                    setQuantity((prev) => prev + 1)
+                  }
+                  className="
+                  px-5
+                  py-4
+                  hover:bg-gray-100
+                  transition
+                  "
+                >
+                  <FaPlus />
+                </button>
+
+              </div>
+
+
+
+              {/* BUTTONS */}
+
+              <button
+                onClick={handleAddToCart}
+                className="
+                bg-black
+                text-white
+                px-8
+                py-4
+                rounded-2xl
+                hover:bg-slate-800
+                transition
+                duration-300
+                "
+              >
+                Add To Cart
+              </button>
+
+
+
+              <button className="
+              border
+              border-gray-300
+              px-5
+              py-4
+              rounded-2xl
+              hover:bg-gray-100
+              transition
+              ">
+
+                <FaHeart />
+
+              </button>
+
+            </div>
+
+          </motion.div>
+
+        </div>
+
+      </section>
+
+
+
+      {/* RELATED PRODUCTS */}
+
+      <section className="
+      bg-white
+      py-24
+      ">
+
+        <div className="
+        max-w-7xl
+        mx-auto
+        px-6
+        ">
+
+          <div className="
+          text-center
+          mb-16
+          ">
+
+            <p className="
+            uppercase
+            tracking-[4px]
+            text-sm
+            text-gray-500
+            mb-4
+            ">
+              Recommendations
+            </p>
+
+            <h2 className="
+            text-5xl
+            font-bold
+            text-slate-900
+            ">
+              Related Products
+            </h2>
+
+          </div>
+
+
+
+          <div className="
+          grid
+          grid-cols-1
+          md:grid-cols-2
+          lg:grid-cols-3
+          gap-8
+          ">
+
+            {relatedProducts.map((item) => (
+
+              <div
+                key={item.id}
+                onClick={() =>
+                  navigate(`/product/${item.id}`)
+                }
+                className="
+                group
+                bg-white
+                rounded-3xl
+                overflow-hidden
+                shadow-sm
+                hover:shadow-2xl
+                hover:-translate-y-2
+                transition-all
+                duration-300
+                cursor-pointer
+                "
+              >
+
+                <div className="
+                overflow-hidden
+                bg-slate-50
+                ">
+
+                  <img
+                    src={item.img}
+                    className="
+                    w-full
+                    h-72
+                    object-cover
+                    group-hover:scale-110
+                    transition
+                    duration-500
+                    "
+                  />
+
+                </div>
+
+
+
+                <div className="p-6">
+
+                  <span className="
+                  inline-block
+                  bg-gray-100
+                  text-sm
+                  px-3
+                  py-1
+                  rounded-full
+                  mb-4
+                  ">
+                    {item.category}
+                  </span>
+
+                  <h3 className="
+                  text-2xl
+                  font-bold
+                  text-slate-900
+                  ">
+                    {item.title}
+                  </h3>
+
+                  <p className="
+                  mt-4
+                  text-gray-600
+                  ">
+                    ₹ {item.price}
+                  </p>
+
+                </div>
+
+              </div>
+
             ))}
-          </ul>
-        ) : (
-          <p className="mt-2">{product.description}</p>
-        )}
 
-        <p className="mt-2"><b>Age:</b> {product.age}</p>
-        <p className="mt-2"><b>Benefits:</b> {product.benefits}</p>
-        <p className="mt-2"><b>Include:</b> {product.Includes}</p>
-        <p className="mt-2"><b>Price: </b> ₹ {product.Price}</p>
+          </div>
 
-        <button
-          onClick={() => addToCart(product)}
-          className="mt-5 bg-blue-500 text-white px-6 py-2 rounded cursor-pointer hover:bg-amber-400"
-        >
-          Add to Cart
-        </button>
+        </div>
 
-      </div>
-    </div>
+      </section>
+
+    </>
+
   );
+
 }
- 
-
-

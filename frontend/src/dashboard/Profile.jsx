@@ -7,7 +7,7 @@ const Profile = () => {
       <div className="flex items-center gap-5 border-b pb-4 mb-6">
         <FaRegUser className="text-4xl p-2 h-14 w-14 bg-gray-100 border rounded-full" />
         <div>
-          <h3 className="text-2xl font-bold">Sara Trancadi</h3>
+          <h3 className="text-2xl font-bold">Aviral Shukla</h3>
           <p className="text-gray-500 text-sm">Manage your profile</p>
         </div>
       </div>
