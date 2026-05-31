@@ -26,10 +26,16 @@ app.get('/', (req, res) => {
     res.send('Welcome to the Toy Rental API');
 });
 
+app.use(
+  '/api/products',
+  require('./routes/product.route')
+);
+
 // API routes
 app.use('/api/auth', require('./routes/auth.route'));
 app.use('/api/test', require('./routes/test.route'));
 app.use('/api/practice', require('./routes/practice.route'));
+;
 
 
 // server

@@ -9,10 +9,9 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    age: {
-        type: Number,
-        required: true,
-    },
+  age: {
+  type: String
+},
     benefit: {
         type: String,
         required: true,

@@ -4,11 +4,29 @@ const authMiddleware = (roles = []) => {
     if (typeof roles === 'string') roles = [roles];
 
     return (req, res, next) => {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) return res.status(401).json({ message: 'Unauthorized' });
+
+        console.log("=== AUTH MIDDLEWARE ===");
+        console.log("Headers:", req.headers);
+
+      const authHeader = req.headers.authorization;
+
+if (!authHeader?.startsWith('Bearer')) {
+    return res.status(401).json({ message: 'Unauthorized' });
+}
+
+const token = authHeader.substring(7).trim();
+
+        console.log("Token:", token);
+
+        if (!token) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+            console.log("Decoded:", decoded);
+
             req.user = decoded;
 
             if (roles.length && !roles.includes(decoded.role)) {
@@ -17,6 +35,7 @@ const authMiddleware = (roles = []) => {
 
             next();
         } catch (err) {
+            console.log("JWT ERROR:", err.message);
             return res.status(401).json({ message: 'Invalid token' });
         }
     };

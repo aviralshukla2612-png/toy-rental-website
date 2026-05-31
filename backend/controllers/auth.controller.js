@@ -71,7 +71,10 @@ exports.registerAdmin = async(req,res)=>{
     try{
         const{ username, name, email, password} = req.body;
       
-        const existingAdmin = await User.findOne({email});
+        const existingAdmin = await User.findOne({
+   email,
+   role: 'admin'
+});
         if(existingAdmin) {
             return res.status(400).json({message:"Admin already exists"});
         }
@@ -93,29 +96,43 @@ exports.registerAdmin = async(req,res)=>{
 };
 
 // Admin login
+exports.loginAdmin = async (req, res) => {
+    try {
+        const { email, password } = req.body;
 
-exports.loginAdmin = async(req,res)=>{
-    try{
-        const{email,password}=req.body;
+        const admin = await User.findOne({
+            email,
+            role: "admin"
+        });
 
-        const admin = await User.findOne({email});
-        if(!admin){
-            return res.status(400).json({message:"Invalid email or password"});
+        if (!admin) {
+            return res.status(400).json({
+                message: "Invalid email or password"
+            });
         }
-        const ismatch = await bcrypt.compare(password,admin.password);
-        if(!ismatch){
-            return res.status(400).json({message:"Invalid email or password"});
+
+        const isMatch = await bcrypt.compare(password, admin.password);
+
+        if (!isMatch) {
+            return res.status(400).json({
+                message: "Invalid email or password"
+            });
         }
 
-        const token = jwt.sign({id:admin._id,role:admin.role},process.env.JWT_SECRET,{expiresIn:"1d"});
+        const token = createToken(admin);
 
-        res.status(200).json({message:"Login successfully",token,role:admin.role});
-    }
-    catch(error){
-        res.status(500).json({message: error.message});
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            role: admin.role
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
     }
 };
-
 // User list
 exports.getUsers = async (req, res) => {
     try{
