@@ -3,12 +3,43 @@ const Product = require("../models/product.model");
 // GET ALL PRODUCTS
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const search = req.query.search || "";
+    const category = req.query.category || "";
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 5;
+
+    console.log("QUERY PARAMS:", req.query);
+
+    const query = {};
+
+    if (search) {
+      query.title = {
+        $regex: search,
+        $options: "i",
+      };
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    console.log("MONGO QUERY:", query);
+
+    const products = await Product.find(query)
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    console.log("FOUND:", products.length);
+
+    const totalProducts = await Product.countDocuments(query);
 
     res.status(200).json({
-      message: "Products fetched successfully",
+      totalProducts,
+      currentPage: page,
+      totalPages: Math.ceil(totalProducts / limit),
       data: products,
     });
+
   } catch (error) {
     res.status(500).json({
       message: error.message,
