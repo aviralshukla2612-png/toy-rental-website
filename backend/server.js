@@ -46,6 +46,7 @@ app.use("/api/auth", require("./routes/auth.route"));
 app.use("/api/test", require("./routes/test.route"));
 app.use("/api/practice", require("./routes/practice.route"));
 app.use("/api/products", require("./routes/product.route"));
+app.use("/api/rentals", require("./routes/rental.route"));
 
 // ====================
 // SERVER
