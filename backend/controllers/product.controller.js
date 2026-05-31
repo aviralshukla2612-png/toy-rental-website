@@ -40,7 +40,12 @@ exports.getProductById = async (req, res) => {
 // ADD PRODUCT
 exports.addProduct = async (req, res) => {
   try {
-    const newProduct = new Product(req.body);
+    const productData = {
+      ...req.body,
+      image: req.file ? req.file.filename : "",
+    };
+
+    const newProduct = new Product(productData);
 
     const savedProduct = await newProduct.save();
 
@@ -58,11 +63,20 @@ exports.addProduct = async (req, res) => {
 // UPDATE PRODUCT
 exports.updateProduct = async (req, res) => {
   try {
+    const updateData = {
+      ...req.body,
+    };
+
+    if (req.file) {
+      updateData.image = req.file.filename;
+    }
+
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      { $set: updateData },
       {
         new: true,
+        runValidators: true,
       }
     );
 
@@ -102,60 +116,6 @@ exports.deleteProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: error.message,
-    });
-  }
-};
-
-// UPDATE PRODUCT
-
-exports.updateProduct = async (req, res) => {
-  try {
-    console.log("ID:", req.params.id);
-    console.log("BODY:", req.body);
-
-    const product = await Product.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      {
-        new: true,
-        runValidators: true
-      }
-    );
-
-    console.log("UPDATED:", product);
-
-    res.status(200).json({
-      message: "Product updated successfully",
-      data: product
-    });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      message: error.message
-    });
-  }
-};
-
-// DELETE PRODUCT
-
-exports.deleteProduct = async (req, res) => {
-  try {
-    const product = await Product.findByIdAndDelete(req.params.id);
-
-    if (!product) {
-      return res.status(404).json({
-        message: "Product not found"
-      });
-    }
-
-    res.status(200).json({
-      message: "Product deleted successfully"
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      message: error.message
     });
   }
 };

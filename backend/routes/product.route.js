@@ -6,10 +6,11 @@ const {
   getProductById,
   addProduct,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 } = require("../controllers/product.controller");
 
 const authMiddleware = require("../middleware/auth");
+const upload = require("../middleware/upload");
 
 // GET ALL PRODUCTS
 router.get("/", getProducts);
@@ -17,25 +18,19 @@ router.get("/", getProducts);
 // GET PRODUCT BY ID
 router.get("/:id", getProductById);
 
-// UPDATE PRODUCT
-
-router.put("/:id", updateProduct);
-
-// DELETE PRODUCT
-
-router.delete("/:id", deleteProduct);
-
-// ADD PRODUCT (ADMIN ONLY)
+// ADD PRODUCT (ADMIN ONLY + IMAGE UPLOAD)
 router.post(
   "/",
   authMiddleware("admin"),
+  upload.single("image"),
   addProduct
 );
 
-// UPDATE PRODUCT (ADMIN ONLY)
+// UPDATE PRODUCT (ADMIN ONLY + IMAGE UPLOAD)
 router.put(
   "/:id",
   authMiddleware("admin"),
+  upload.single("image"),
   updateProduct
 );
 
