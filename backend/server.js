@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const path = require("path");
+const dashboardRoutes = require("./routes/dashboard.route");
 
 const app = express();
 
@@ -47,6 +48,10 @@ app.use("/api/test", require("./routes/test.route"));
 app.use("/api/practice", require("./routes/practice.route"));
 app.use("/api/products", require("./routes/product.route"));
 app.use("/api/rentals", require("./routes/rental.route"));
+app.use(
+  "/api/dashboard",
+  dashboardRoutes
+);
 
 // ====================
 // SERVER

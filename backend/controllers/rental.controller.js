@@ -1,9 +1,27 @@
 const Rental = require("../models/rental.model");
+const Product = require("../models/product.model");
+
+// Create a new rental
 
 exports.createRental = async (req, res) => {
   try {
 
-    // Check if product is already rented
+    const product = await Product.findById(
+      req.body.productId
+    );
+
+    if (!product) {
+      return res.status(404).json({
+        message: "Product not found"
+      });
+    }
+
+    if (product.stock <= 0) {
+      return res.status(400).json({
+        message: "Product out of stock"
+      });
+    }
+
     const existingRental = await Rental.findOne({
       product: req.body.productId,
       status: "rented"
@@ -17,17 +35,21 @@ exports.createRental = async (req, res) => {
 
     const rental = await Rental.create({
       user: req.user.id,
-      product: req.body.productId,
+      product: req.body.productId
     });
+
+    // decrease stock
+    product.stock -= 1;
+    await product.save();
 
     res.status(201).json({
       message: "Product rented successfully",
-      data: rental,
+      data: rental
     });
 
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      message: error.message
     });
   }
 };
@@ -55,6 +77,8 @@ exports.getMyRentals = async (req, res) => {
 exports.returnProduct = async (req, res) => {
   try {
     console.log("PARAMS:", req.params);
+    console.log("ID:", req.params.id);
+console.log("Length:", req.params.id.length);
 
     const rental = await Rental.findByIdAndUpdate(
       req.params.id,
@@ -73,6 +97,16 @@ exports.returnProduct = async (req, res) => {
       return res.status(404).json({
         message: "Rental not found"
       });
+    }
+
+    // Increase stock when returned
+    const product = await Product.findById(
+      rental.product
+    );
+
+    if (product) {
+      product.stock += 1;
+      await product.save();
     }
 
     res.status(200).json({
