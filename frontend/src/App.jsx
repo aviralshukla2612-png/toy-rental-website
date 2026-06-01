@@ -17,6 +17,7 @@ import Inquire from "./pages/Inquire";
 import  Table  from './pages/Table'
 import  Chart  from './pages/Chart'
 import  Dashboard  from './pages/Dashboard'
+import AdminDashboard from './pages/AdminDashboard'
 
  const App = () => {
 
@@ -41,6 +42,7 @@ import  Dashboard  from './pages/Dashboard'
       <Route path='/table' element={<Table/>}/>
       <Route path='/chart' element={<Chart/>}/>
       <Route path='/dash' element={<Dashboard/>}/>
+      <Route path='/admin' element={<AdminDashboard/>}/>
       </Route>
     </Routes>
 

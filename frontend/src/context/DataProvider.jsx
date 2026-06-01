@@ -9,42 +9,64 @@ export const DataProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [cart, setCart] = useState([]);
 
+  const login = (userData, tokenData) => {
+    localStorage.setItem("user", JSON.stringify(userData));
+    localStorage.setItem("token", tokenData);
 
-  const login = (user, token) => {
-    const savedUser = localStorage.setItem('user', user) || sessionStorage.setItem('user', user);
-    const savedToken = localStorage.setItem('token', token) || sessionStorage.setItem('token', token);
-
+    setUser(userData);
+    setToken(tokenData);
+    setIsLogIn(true);
+    setIsAuth(true);
   };
 
-
   const logout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('token');
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+
+    setUser(null);
+    setToken(null);
     setIsLogIn(false);
+    setIsAuth(false);
   };
 
   useEffect(() => {
-    const user = localStorage.getItem('user') || sessionStorage.getItem('user');
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+    const savedUser =
+      localStorage.getItem("user") ||
+      sessionStorage.getItem("user");
 
-    if (user && token) {
-      setIsLogIn(true);
-      setIsAuth(true);
-      setUser(JSON.parse(user));
-      setToken(token);
-    }
-    else {
-      setIsLogIn(false);
-      setIsAuth(false);
+    const savedToken =
+      localStorage.getItem("token") ||
+      sessionStorage.getItem("token");
+
+    if (savedUser && savedToken) {
+      try {
+        setUser(JSON.parse(savedUser));
+        setToken(savedToken);
+        setIsLogIn(true);
+        setIsAuth(true);
+      } catch (error) {
+        console.error("Invalid user data in storage");
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+
+        setUser(null);
+        setToken(null);
+        setIsLogIn(false);
+        setIsAuth(false);
+      }
+    } else {
       setUser(null);
       setToken(null);
+      setIsLogIn(false);
+      setIsAuth(false);
     }
-    setIsAuth(true);
   }, []);
 
-  console.log(isLogIn);
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
@@ -54,16 +76,15 @@ export const DataProvider = ({ children }) => {
     setCart(updatedCart);
   };
 
-
   const clearCart = () => {
     setCart([]);
   };
-
 
   const value = {
     user,
     token,
     isLogIn,
+    isAuth,
     login,
     logout,
     cart,
@@ -73,15 +94,12 @@ export const DataProvider = ({ children }) => {
   };
 
   return (
-    <Datacontext.Provider
-      value={value}
-    >
+    <Datacontext.Provider value={value}>
       {children}
     </Datacontext.Provider>
   );
 };
 
 export const useData = () => {
-  const context = useContext(Datacontext);
-  return context;
+  return useContext(Datacontext);
 };
