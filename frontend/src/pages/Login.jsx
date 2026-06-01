@@ -44,36 +44,63 @@ const Login = () => {
 
   /* HANDLE SUBMIT */
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    e.preventDefault();
+  try {
+    setLoading(true);
 
-    try {
+    let response;
 
-      setLoading(true);
+    // Admin Login
+    if (form.email === "admin@gmail.com") {
+      response = await axios.post(
+        `${API}/api/auth/admin/login`,
+        form
+      );
 
-      const { data } = await axios.post(
+      const { data } = response;
+
+      login(
+        {
+          role: data.role,
+          email: form.email,
+        },
+        data.token
+      );
+
+      alert("Admin Login Successful");
+
+      navigate("/admin");
+    }
+
+    // User Login
+    else {
+      response = await axios.post(
         `${API}/api/auth/login`,
         form
       );
 
+      const { data } = response;
+
       login(data.data, data.token);
 
-      navigate("/");
+      alert("Login Successful");
 
-    } catch (err) {
-
-      console.error(err);
-
-      alert("Invalid email or password");
-
-    } finally {
-
-      setLoading(false);
-
+      if (form.email === "admin@gmail.com") {
+  navigate("/admin");
+} else {
+  navigate("/");
+}
     }
 
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Invalid email or password");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center px-6 py-20">
