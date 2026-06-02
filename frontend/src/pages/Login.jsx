@@ -44,7 +44,7 @@ const Login = () => {
 
   /* HANDLE SUBMIT */
 
- const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
@@ -52,8 +52,8 @@ const Login = () => {
 
     let response;
 
-    // Admin Login
-    if (form.email === "admin@gmail.com") {
+    // Try admin login first
+    try {
       response = await axios.post(
         `${API}/api/auth/admin/login`,
         form
@@ -69,30 +69,23 @@ const Login = () => {
         data.token
       );
 
-      alert("Admin Login Successful");
-
       navigate("/admin");
+      return;
+
+    } catch {
+      // If not admin, continue with user login
     }
 
-    // User Login
-    else {
-      response = await axios.post(
-        `${API}/api/auth/login`,
-        form
-      );
+    response = await axios.post(
+      `${API}/api/auth/login`,
+      form
+    );
 
-      const { data } = response;
+    const { data } = response;
 
-      login(data.data, data.token);
+    login(data.data, data.token);
 
-      alert("Login Successful");
-
-      if (form.email === "admin@gmail.com") {
-  navigate("/admin");
-} else {
-  navigate("/");
-}
-    }
+    navigate("/");
 
   } catch (err) {
     console.error(err);

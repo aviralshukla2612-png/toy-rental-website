@@ -17,7 +17,12 @@ import Inquire from "./pages/Inquire";
 import  Table  from './pages/Table'
 import  Chart  from './pages/Chart'
 import  Dashboard  from './pages/Dashboard'
-import AdminDashboard from './pages/AdminDashboard'
+import AdminLayout from "./layout/AdminLayout";
+import AdminDashboard from './admin/AdminDashboard'
+import Product from "./admin/Product";
+import User from "./admin/User";
+import Rentals from "./admin/Rentals";
+import Analytic from "./admin/Analytic";
 
  const App = () => {
 
@@ -42,7 +47,14 @@ import AdminDashboard from './pages/AdminDashboard'
       <Route path='/table' element={<Table/>}/>
       <Route path='/chart' element={<Chart/>}/>
       <Route path='/dash' element={<Dashboard/>}/>
-      <Route path='/admin' element={<AdminDashboard/>}/>
+      
+<Route path="/admin" element={<AdminLayout />}>
+  <Route index element={<AdminDashboard />} />
+  <Route path="products" element={<Product />} />
+  <Route path="users" element={<User />} />
+  <Route path="rentals" element={<Rentals />} />
+  <Route path="analytics" element={<Analytic />} />
+</Route>
       </Route>
     </Routes>
 

@@ -1,0 +1,245 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { API } from "../config/api";
+import {
+  FaPlus,
+  FaEdit,
+  FaTrash,
+  FaSearch,
+} from "react-icons/fa";
+
+const Product = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [search, page]);
+
+  const fetchProducts = async () => {
+  setLoading(true);
+
+  try {
+     const res = await axios.get(
+  `${API}/api/products?search=${search}&page=${page}&limit=5`
+);
+
+      setProducts(res.data.data);
+      setTotalPages(res.data.totalPages || 1);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Delete this product?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+     await axios.delete(
+  `${API}/api/products/${id}`,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+);
+
+      fetchProducts();
+    } catch (error) {
+      console.log(error);
+      alert("Delete Failed");
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-10 text-xl font-semibold">
+        Loading Products...
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6">
+
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+
+        <div>
+          <h1 className="text-3xl font-bold">
+            Product Management
+          </h1>
+
+          <p className="text-gray-500">
+            Manage all rental products
+          </p>
+        </div>
+
+        <button className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700">
+          <FaPlus />
+          Add Product
+        </button>
+
+      </div>
+
+      {/* Search */}
+      <div className="relative mb-6">
+
+        <FaSearch className="absolute left-4 top-4 text-gray-400" />
+
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={search}
+          onChange={(e) => {
+            setPage(1);
+            setSearch(e.target.value);
+          }}
+          className="w-full border rounded-lg pl-12 p-3"
+        />
+
+      </div>
+
+      {/* Table */}
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+
+        <table className="w-full">
+
+          <thead className="bg-gray-100">
+
+            <tr>
+              <th className="p-4 text-left">Image</th>
+              <th className="p-4 text-left">Title</th>
+              <th className="p-4 text-left">Category</th>
+              <th className="p-4 text-left">Stock</th>
+              <th className="p-4 text-left">Price</th>
+              <th className="p-4 text-center">Actions</th>
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            {products.length > 0 ? (
+              products.map((product) => (
+                <tr
+                  key={product._id}
+                  className="border-t hover:bg-gray-50"
+                >
+
+                  <td className="p-4">
+
+                 <img
+  src={
+    product.image
+      ? `${API}/uploads/${product.image}`
+      : "/no-image.png"
+  }
+  alt={product.title}
+  className="w-16 h-16 object-cover rounded-lg"
+/>
+                   
+
+                  </td>
+
+                  <td className="p-4 font-medium">
+                    {product.title}
+                  </td>
+
+                  <td className="p-4">
+                    {product.category}
+                  </td>
+
+                  <td className="p-4">
+                    {product.stock}
+                  </td>
+
+                  <td className="p-4">
+                    ₹{product.price}
+                  </td>
+
+                  <td className="p-4">
+
+                    <div className="flex justify-center gap-3">
+
+                      <button
+  onClick={() => alert("Edit Product Coming Soon")}
+  className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600"
+>
+  <FaEdit />
+</button>
+
+                      <button
+                        onClick={() =>
+                          handleDelete(product._id)
+                        }
+                        className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+                      >
+                        <FaTrash />
+                      </button>
+
+                    </div>
+
+                  </td>
+
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="6"
+                  className="text-center p-10"
+                >
+                  No Products Found
+                </td>
+              </tr>
+            )}
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center gap-4 mt-6">
+
+        <button
+          disabled={page === 1}
+          onClick={() => setPage(page - 1)}
+          className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+
+        <span className="font-semibold">
+          Page {page} of {totalPages}
+        </span>
+
+        <button
+          disabled={page === totalPages}
+          onClick={() => setPage(page + 1)}
+          className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+
+      </div>
+
+    </div>
+  );
+};
+
+export default Product;
