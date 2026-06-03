@@ -3,8 +3,8 @@ import axios from "axios";
 
 import Sidebar from "../component/Admin/Sidebar";
 import StatsCard from "../component/Admin/StatsCard";
-import RentalPiechart from "../component/Admin/RentalPiechart";
-import Rentalbarchart from "../component/Admin/Rentalbarchart";
+import RentalPiechart from "../component/Admin/RentalPieChart";
+import Rentalbarchart from "../component/Admin/RentalBarChart";
 import AdminNavbar from "../component/Admin/AdminNavbar";
 
 import { API } from "../config/api";
