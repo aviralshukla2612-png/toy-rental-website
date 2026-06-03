@@ -1,7 +1,7 @@
 import React from "react";
 
-import RentalPiechart from "../component/Admin/RentalPiechart";
-import Rentalbarchart from "../component/Admin/Rentalbarchart";
+import RentalPieChart from "../component/Admin/RentalPieChart";
+import RentalBarChart from "../component/Admin/RentalBarChart";
 
 const Analytic = () => {
 
@@ -77,12 +77,12 @@ const Analytic = () => {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-        <RentalPiechart
+        <RentalPieChart
           activeRentals={stats.activeRentals}
           returnedRentals={stats.returnedRentals}
         />
 
-        <Rentalbarchart
+        <RentalBarChart
           totalProducts={stats.totalProducts}
           totalUsers={stats.totalUsers}
           totalRentals={stats.totalRentals}

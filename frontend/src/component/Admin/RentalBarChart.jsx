@@ -10,7 +10,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Rentalbarchart = ({
+const RentalBarChart = ({
   totalProducts = 0,
   totalUsers = 0,
   totalRentals = 0,
@@ -64,4 +64,4 @@ const Rentalbarchart = ({
   );
 };
 
-export default Rentalbarchart;
+export default RentalBarChart;

@@ -9,7 +9,7 @@ import {
   Legend,
 } from "recharts";
 
-const RentalPiechart = ({
+const RentalPieChart = ({
   activeRentals = 0,
   returnedRentals = 0,
 }) => {
@@ -61,4 +61,4 @@ const RentalPiechart = ({
   );
 };
 
-export default RentalPiechart;
+export default RentalPieChart;
