@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "../config/api";
+import AddProductModal from "../component/Admin/AddProductModal";
+import EditProductModal from "../component/Admin/EditProductModal";
 import {
   FaPlus,
   FaEdit,
@@ -12,9 +14,13 @@ const Product = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [showEditModal, setShowEditModal] = useState(false);
+const [selectedProduct, setSelectedProduct] = useState(null);
+
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchProducts();
@@ -62,15 +68,13 @@ const Product = () => {
       alert("Delete Failed");
     }
   };
-
-  if (loading) {
-    return (
-      <div className="p-10 text-xl font-semibold">
-        Loading Products...
-      </div>
-    );
-  }
-
+if (loading) {
+  return (
+    <div className="flex justify-center items-center h-64">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+  );
+}
   return (
     <div className="p-6">
 
@@ -87,10 +91,13 @@ const Product = () => {
           </p>
         </div>
 
-        <button className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700">
-          <FaPlus />
-          Add Product
-        </button>
+       <button
+  onClick={() => setShowModal(true)}
+  className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition"
+>
+  <FaPlus />
+  Add Product
+</button>
 
       </div>
 
@@ -107,13 +114,13 @@ const Product = () => {
             setPage(1);
             setSearch(e.target.value);
           }}
-          className="w-full border rounded-lg pl-12 p-3"
+          className="w-full border border-gray-300 rounded-lg pl-12 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div className="bg-white rounded-xl shadow-lg overflow-x-auto">
 
         <table className="w-full">
 
@@ -174,13 +181,15 @@ const Product = () => {
 
                     <div className="flex justify-center gap-3">
 
-                      <button
-  onClick={() => alert("Edit Product Coming Soon")}
-  className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600"
+  <button
+  onClick={() => {
+    setSelectedProduct(product);
+    setShowEditModal(true);
+  }}
+  className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600 transition"
 >
   <FaEdit />
 </button>
-
                       <button
                         onClick={() =>
                           handleDelete(product._id)
@@ -189,6 +198,7 @@ const Product = () => {
                       >
                         <FaTrash />
                       </button>
+      
 
                     </div>
 
@@ -223,8 +233,7 @@ const Product = () => {
         >
           Previous
         </button>
-
-        <span className="font-semibold">
+<span className="font-semibold text-gray-700">
           Page {page} of {totalPages}
         </span>
 
@@ -237,6 +246,17 @@ const Product = () => {
         </button>
 
       </div>
+      <AddProductModal
+  isOpen={showModal}
+  onClose={() => setShowModal(false)}
+  fetchProducts={fetchProducts}
+/>
+<EditProductModal
+  isOpen={showEditModal}
+  onClose={() => setShowEditModal(false)}
+  product={selectedProduct}
+  fetchProducts={fetchProducts}
+/>
 
     </div>
   );
