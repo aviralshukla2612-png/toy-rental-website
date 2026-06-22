@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import Sidebar from "../component/Admin/Sidebar";
+
 import StatsCard from "../component/Admin/StatsCard";
 import RentalPiechart from "../component/Admin/RentalPieChart";
 import Rentalbarchart from "../component/Admin/RentalBarChart";
-import AdminNavbar from "../component/Admin/AdminNavbar";
+
 
 import { API } from "../config/api";
 
@@ -70,19 +70,10 @@ function AdminDashboard() {
     );
   }
 
-  return (
-    <div className="flex min-h-screen bg-gray-100">
+return (
+  <div className="p-4 sm:p-6 lg:p-8">
 
-      {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-x-hidden">
-
-        {/* Navbar */}
-        <AdminNavbar />
-
-        <div className="p-4 sm:p-6 lg:p-8">
+        
 
           {/* Page Title */}
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
@@ -186,8 +177,8 @@ function AdminDashboard() {
 
         </div>
 
-      </div>
-    </div>
+     
+   
   );
 }
 
