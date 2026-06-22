@@ -34,20 +34,17 @@ function AdminDashboard() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get(
-          `${API}/api/dashboard`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const res = await axios.get(`${API}/api/dashboard`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         setStats(res.data);
       } catch (err) {
         setError(
           err.response?.data?.message ||
-            "Failed to load dashboard data"
+          "Failed to load dashboard data"
         );
       } finally {
         setLoading(false);
@@ -59,7 +56,7 @@ function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-screen text-xl font-semibold">
+      <div className="flex justify-center items-center h-screen text-lg md:text-xl font-semibold">
         Loading Dashboard...
       </div>
     );
@@ -67,7 +64,7 @@ function AdminDashboard() {
 
   if (error) {
     return (
-      <div className="flex justify-center items-center h-screen text-red-500 text-xl">
+      <div className="flex justify-center items-center h-screen text-red-500 text-lg md:text-xl text-center px-4">
         {error}
       </div>
     );
@@ -76,98 +73,120 @@ function AdminDashboard() {
   return (
     <div className="flex min-h-screen bg-gray-100">
 
-     
+      {/* Sidebar */}
+      <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-8">
+      <div className="flex-1 overflow-x-hidden">
 
+        {/* Navbar */}
+        <AdminNavbar />
 
+        <div className="p-4 sm:p-6 lg:p-8">
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6 mt-8">
+          {/* Page Title */}
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+            Dashboard Overview
+          </h1>
 
-          <StatsCard
-            title="Products"
-            value={stats.totalProducts}
-            icon={<FaBoxOpen />}
-            bgColor="bg-blue-100"
-            textColor="text-blue-700"
-          />
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-5 mt-6">
 
-          <StatsCard
-            title="Users"
-            value={stats.totalUsers}
-            icon={<FaUsers />}
-            bgColor="bg-green-100"
-            textColor="text-green-700"
-          />
+            <StatsCard
+              title="Products"
+              value={stats.totalProducts}
+              icon={<FaBoxOpen />}
+              bgColor="bg-blue-100"
+              textColor="text-blue-700"
+            />
 
-          <StatsCard
-            title="Rentals"
-            value={stats.totalRentals}
-            icon={<FaClipboardList />}
-            bgColor="bg-yellow-100"
-            textColor="text-yellow-700"
-          />
+            <StatsCard
+              title="Users"
+              value={stats.totalUsers}
+              icon={<FaUsers />}
+              bgColor="bg-green-100"
+              textColor="text-green-700"
+            />
 
-          <StatsCard
-            title="Active Rentals"
-            value={stats.activeRentals}
-            icon={<FaClock />}
-            bgColor="bg-orange-100"
-            textColor="text-orange-700"
-          />
+            <StatsCard
+              title="Rentals"
+              value={stats.totalRentals}
+              icon={<FaClipboardList />}
+              bgColor="bg-yellow-100"
+              textColor="text-yellow-700"
+            />
 
-          <StatsCard
-            title="Returned Rentals"
-            value={stats.returnedRentals}
-            icon={<FaCheckCircle />}
-            bgColor="bg-purple-100"
-            textColor="text-purple-700"
-          />
+            <StatsCard
+              title="Active Rentals"
+              value={stats.activeRentals}
+              icon={<FaClock />}
+              bgColor="bg-orange-100"
+              textColor="text-orange-700"
+            />
 
-        </div>
+            <StatsCard
+              title="Returned Rentals"
+              value={stats.returnedRentals}
+              icon={<FaCheckCircle />}
+              bgColor="bg-purple-100"
+              textColor="text-purple-700"
+            />
 
-        {/* Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
+          </div>
 
-          <RentalPiechart
-            activeRentals={stats.activeRentals}
-            returnedRentals={stats.returnedRentals}
-          />
+          {/* Charts */}
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mt-8">
 
-          <Rentalbarchart
-            totalProducts={stats.totalProducts}
-            totalUsers={stats.totalUsers}
-            totalRentals={stats.totalRentals}
-            returnedRentals={stats.returnedRentals}
-          />
+            <div className="bg-white rounded-xl shadow-md p-4 overflow-x-auto">
+              <RentalPiechart
+                activeRentals={stats.activeRentals}
+                returnedRentals={stats.returnedRentals}
+              />
+            </div>
 
-        </div>
+            <div className="bg-white rounded-xl shadow-md p-4 overflow-x-auto">
+              <Rentalbarchart
+                totalProducts={stats.totalProducts}
+                totalUsers={stats.totalUsers}
+                totalRentals={stats.totalRentals}
+                returnedRentals={stats.returnedRentals}
+              />
+            </div>
 
-        {/* Recent Activity */}
-        <div className="mt-10 bg-white rounded-xl shadow-lg p-6">
+          </div>
 
-          <h2 className="text-2xl font-semibold mb-4">
-            Recent Activity
-          </h2>
+          {/* Recent Activity */}
+          <div className="mt-8 bg-white rounded-xl shadow-md p-5 sm:p-6">
 
-          <ul className="space-y-3 text-gray-700">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-4">
+              Recent Activity
+            </h2>
 
-            <li>✅ New User Registered</li>
+            <ul className="space-y-4 text-gray-700 text-sm sm:text-base">
 
-            <li>📦 New Product Added</li>
+              <li className="flex items-center gap-2">
+                ✅ New User Registered
+              </li>
 
-            <li>🚚 Rental Created</li>
+              <li className="flex items-center gap-2">
+                📦 New Product Added
+              </li>
 
-            <li>✔ Product Returned</li>
+              <li className="flex items-center gap-2">
+                🚚 Rental Created
+              </li>
 
-          </ul>
+              <li className="flex items-center gap-2">
+                ✔ Product Returned
+              </li>
+
+            </ul>
+
+          </div>
 
         </div>
 
       </div>
-
     </div>
   );
 }

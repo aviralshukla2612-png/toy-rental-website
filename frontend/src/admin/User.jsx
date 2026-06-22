@@ -17,7 +17,8 @@ const User = () => {
     const result = users.filter(
       (user) =>
         user.name?.toLowerCase().includes(search.toLowerCase()) ||
-        user.email?.toLowerCase().includes(search.toLowerCase())
+        user.email?.toLowerCase().includes(search.toLowerCase()) ||
+        user.username?.toLowerCase().includes(search.toLowerCase())
     );
 
     setFilteredUsers(result);
@@ -47,23 +48,23 @@ const User = () => {
 
   if (loading) {
     return (
-      <div className="p-10 text-xl font-semibold">
-        Loading Users...
+      <div className="flex justify-center items-center min-h-[300px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
 
       {/* Header */}
       <div className="mb-6">
 
-        <h1 className="text-3xl font-bold">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
           User Management
         </h1>
 
-        <p className="text-gray-500">
+        <p className="text-gray-500 mt-1">
           View all registered users
         </p>
 
@@ -78,18 +79,16 @@ const User = () => {
           type="text"
           placeholder="Search users..."
           value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-          className="w-full border rounded-lg pl-12 p-3"
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full border border-gray-300 rounded-lg pl-12 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
       </div>
 
-      {/* User Table */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      {/* Table */}
+      <div className="bg-white rounded-xl shadow-md overflow-x-auto">
 
-        <table className="w-full">
+        <table className="min-w-[800px] w-full">
 
           <thead className="bg-gray-100">
 
@@ -110,7 +109,7 @@ const User = () => {
                 Username
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-center">
                 Role
               </th>
             </tr>
@@ -123,17 +122,16 @@ const User = () => {
               filteredUsers.map((user) => (
                 <tr
                   key={user._id}
-                  className="border-t hover:bg-gray-50"
+                  className="border-t hover:bg-blue-50 transition"
                 >
 
                   <td className="p-4">
-                    <FaUser
-                      size={24}
-                      className="text-blue-500"
-                    />
+                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                      <FaUser className="text-blue-600" />
+                    </div>
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-4 font-medium">
                     {user.name}
                   </td>
 
@@ -145,10 +143,18 @@ const User = () => {
                     {user.username}
                   </td>
 
-                  <td className="p-4">
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                  <td className="p-4 text-center">
+
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        user.role === "admin"
+                          ? "bg-purple-100 text-purple-700"
+                          : "bg-green-100 text-green-700"
+                      }`}
+                    >
                       {user.role}
                     </span>
+
                   </td>
 
                 </tr>
@@ -158,7 +164,7 @@ const User = () => {
 
                 <td
                   colSpan="5"
-                  className="text-center p-10"
+                  className="text-center p-10 text-gray-500"
                 >
                   No Users Found
                 </td>
@@ -169,6 +175,37 @@ const User = () => {
           </tbody>
 
         </table>
+
+      </div>
+
+      {/* Summary */}
+      <div className="mt-6 bg-white rounded-xl shadow-md p-5">
+
+        <h2 className="text-lg font-semibold mb-3">
+          User Summary
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            Total Users:
+            <span className="font-bold ml-2">
+              {filteredUsers.length}
+            </span>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            Admin Users:
+            <span className="font-bold ml-2">
+              {
+                filteredUsers.filter(
+                  (user) => user.role === "admin"
+                ).length
+              }
+            </span>
+          </div>
+
+        </div>
 
       </div>
 

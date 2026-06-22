@@ -76,13 +76,13 @@ if (loading) {
   );
 }
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
 
         <div>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
             Product Management
           </h1>
 
@@ -93,7 +93,7 @@ if (loading) {
 
        <button
   onClick={() => setShowModal(true)}
-  className="flex items-center gap-2 bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition"
+  className="flex items-center justify-center gap-2 w-full md:w-auto bg-blue-600 text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition"
 >
   <FaPlus />
   Add Product
@@ -102,7 +102,7 @@ if (loading) {
       </div>
 
       {/* Search */}
-      <div className="relative mb-6">
+   <div className="relative mb-6 max-w-full">
 
         <FaSearch className="absolute left-4 top-4 text-gray-400" />
 
@@ -120,9 +120,9 @@ if (loading) {
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-lg overflow-x-auto">
+      <div className="bg-white rounded-xl shadow-md overflow-x-auto">
 
-        <table className="w-full">
+       <table className="min-w-[700px] w-full">
 
           <thead className="bg-gray-100">
 
@@ -155,7 +155,7 @@ if (loading) {
       : "/no-image.png"
   }
   alt={product.title}
-  className="w-16 h-16 object-cover rounded-lg"
+  className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg border"
 />
                    
 
@@ -179,7 +179,7 @@ if (loading) {
 
                   <td className="p-4">
 
-                    <div className="flex justify-center gap-3">
+                    <div className="flex justify-center flex-wrap gap-2">
 
   <button
   onClick={() => {
@@ -224,28 +224,29 @@ if (loading) {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center items-center gap-4 mt-6">
+      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
 
-        <button
-          disabled={page === 1}
-          onClick={() => setPage(page - 1)}
-          className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50"
-        >
-          Previous
-        </button>
-<span className="font-semibold text-gray-700">
-          Page {page} of {totalPages}
-        </span>
+  <button
+    disabled={page === 1}
+    onClick={() => setPage(page - 1)}
+    className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50 hover:bg-gray-300"
+  >
+    Previous
+  </button>
 
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage(page + 1)}
-          className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50"
-        >
-          Next
-        </button>
+  <span className="font-semibold text-gray-700 text-center">
+    Page {page} of {totalPages}
+  </span>
 
-      </div>
+  <button
+    disabled={page === totalPages}
+    onClick={() => setPage(page + 1)}
+    className="bg-gray-200 px-4 py-2 rounded disabled:opacity-50 hover:bg-gray-300"
+  >
+    Next
+  </button>
+
+</div>
       <AddProductModal
   isOpen={showModal}
   onClose={() => setShowModal(false)}

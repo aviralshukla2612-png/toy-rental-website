@@ -51,24 +51,26 @@ const Rentals = () => {
 
   if (loading) {
     return (
-      <div className="p-10 text-xl font-semibold">
-        Loading Rentals...
+      <div className="flex justify-center items-center min-h-[300px]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
 
   return (
-    <div className="p-6">
+    <div className="min-h-screen bg-gray-100 p-4 sm:p-6 lg:p-8">
 
       {/* Header */}
       <div className="mb-6">
-        <h1 className="text-3xl font-bold">
+
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
           Rental Management
         </h1>
 
-        <p className="text-gray-500">
+        <p className="text-gray-500 mt-1">
           View all rentals and their status
         </p>
+
       </div>
 
       {/* Search */}
@@ -83,15 +85,15 @@ const Rentals = () => {
           onChange={(e) =>
             setSearch(e.target.value)
           }
-          className="w-full border rounded-lg pl-12 p-3"
+          className="w-full border border-gray-300 rounded-lg pl-12 p-3 focus:ring-2 focus:ring-blue-500 outline-none"
         />
 
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+      <div className="bg-white rounded-xl shadow-md overflow-x-auto">
 
-        <table className="w-full">
+        <table className="min-w-[800px] w-full">
 
           <thead className="bg-gray-100">
 
@@ -112,7 +114,7 @@ const Rentals = () => {
                 Rent Date
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-center">
                 Status
               </th>
             </tr>
@@ -125,10 +127,10 @@ const Rentals = () => {
               filteredRentals.map((rental) => (
                 <tr
                   key={rental._id}
-                  className="border-t hover:bg-gray-50"
+                  className="border-t hover:bg-blue-50 transition"
                 >
 
-                  <td className="p-4">
+                  <td className="p-4 font-medium">
                     {rental.user?.name}
                   </td>
 
@@ -146,10 +148,10 @@ const Rentals = () => {
                     ).toLocaleDateString()}
                   </td>
 
-                  <td className="p-4">
+                  <td className="p-4 text-center">
 
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      className={`px-3 py-1 rounded-full text-xs sm:text-sm font-medium ${
                         rental.status === "returned"
                           ? "bg-green-100 text-green-700"
                           : "bg-yellow-100 text-yellow-700"
@@ -167,7 +169,7 @@ const Rentals = () => {
 
                 <td
                   colSpan="5"
-                  className="text-center p-10"
+                  className="text-center p-10 text-gray-500"
                 >
                   No Rentals Found
                 </td>
@@ -178,6 +180,37 @@ const Rentals = () => {
           </tbody>
 
         </table>
+
+      </div>
+
+      {/* Summary */}
+      <div className="mt-6 bg-white rounded-xl shadow-md p-5">
+
+        <h2 className="text-lg font-semibold mb-3">
+          Rental Summary
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            Total Rentals:
+            <span className="font-bold ml-2">
+              {filteredRentals.length}
+            </span>
+          </div>
+
+          <div className="bg-gray-50 rounded-lg p-4">
+            Active Rentals:
+            <span className="font-bold ml-2">
+              {
+                filteredRentals.filter(
+                  (r) => r.status !== "returned"
+                ).length
+              }
+            </span>
+          </div>
+
+        </div>
 
       </div>
 
